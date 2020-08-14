@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WaitInPlace.GroceryPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Firebrick">
+            <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page3"/>
+            <Label x:Name="catLabel"  Text="" TextColor="White" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="20,0"/>
+            <Button x:Name="Store1" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Safeway_page"/>
+            <Button x:Name="Store2" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_TraderJ_page"/>
+            <Button x:Name="Store3" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Sprout_page"/>
+            <Button x:Name="Store4" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_WholeFoods_page"/>
+            <Button x:Name="Store5" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Lucky_page"/>
+            <Button x:Name="Store6" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_NobHill_page"/>
+            <Grid>
+                <Label x:Name="id1" Grid.Row="0" Grid.Column="0" TextColor="Transparent" />
+                <Label x:Name="id2" Grid.Row="0" Grid.Column="1" TextColor="Transparent" />
+                <Label x:Name="id3" Grid.Row="0" Grid.Column="2" TextColor="Transparent"  />
+                <Label x:Name="id4" Grid.Row="0" Grid.Column="3" TextColor="Transparent" />
+                <Label x:Name="id5" Grid.Row="0" Grid.Column="4" TextColor="Transparent" />
+                <Label x:Name="id6" Grid.Row="0" Grid.Column="5" TextColor="Transparent" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

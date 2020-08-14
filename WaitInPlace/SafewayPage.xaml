@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WaitInPlace.SafewayPage">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout BackgroundColor="LightGray">
+            <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,5" Clicked="main_page4"/>
+                <Label x:Name="PageName" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0"/>
+                <Grid BackgroundColor="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                 <Label x:Name="location1" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Center"/>
+                <Label x:Name="location2" Grid.Row="1" HorizontalOptions="Fill" VerticalOptions="Center" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Center"/>
+            </Grid>
+            <Grid BackgroundColor="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+                <Label Text="    Approximate distance" Grid.Row="0" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"/>
+                <Label x:Name="dist" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="End" VerticalOptions="Center" Margin="20,0"/>
+            </Grid>
+            <Grid BackgroundColor="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Label Text="    Number of people in Line" Grid.Row="0" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" TextColor="Black" FontSize="Medium" BackgroundColor="White" HorizontalTextAlignment="Start" />
+                <Label x:Name="Line" Text="35" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" TextColor="Black" FontSize="Medium" VerticalOptions="Center" BackgroundColor="White" HorizontalTextAlignment="End" Margin="20,0"/>
+            </Grid>
+            <Grid BackgroundColor="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                </Grid.RowDefinitions>
+            <Label Text="    Approximate wait time" Grid.Row="0" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="Start"/>
+                <Label x:Name="WaitingTime" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" TextColor="Black" FontSize="Medium" HorizontalTextAlignment="End" VerticalOptions="Center" Margin="20,0"/>
+            </Grid>
+            <Grid BackgroundColor="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Label Text="    Approximate Travel time" Grid.Row="0" Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" TextColor="Black" FontSize="Medium" BackgroundColor="White" HorizontalTextAlignment="Start"/>
+                <Label x:Name="Time" Grid.Row="0" Grid.Column="1" HorizontalOptions="Fill" TextColor="Black" FontSize="Medium" BackgroundColor="White" HorizontalTextAlignment="End" VerticalOptions="Center" Margin="20,0"/>
+            </Grid>
+           
+            <Button x:Name="join" Text="Join the line!" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" Margin="90,2" Clicked="display_Line_Num"/>
+                <StackLayout x:Name="LineStack" BackgroundColor="Transparent"  Margin="90,0" HorizontalOptions="Fill" VerticalOptions="Center">
+                    <Label  x:Name="LS2" Text="Your Number is"  FontSize="Small" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="Transparent"/>
+                <Label  x:Name="yournum"  FontSize="Header" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="Transparent"/>
+            </StackLayout>
+            <Button x:Name="confirmButton" Text="confirm" BackgroundColor="Transparent" TextColor="Transparent" HorizontalOptions="Fill" FontSize="Medium" Margin="90,2"/>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

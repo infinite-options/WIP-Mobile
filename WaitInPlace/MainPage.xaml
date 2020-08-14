@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WaitInPlace.MainPage">
+
+    <StackLayout BackgroundColor="Firebrick">
+        <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,45"/>
+        <StackLayout BackgroundColor="White" Margin="20">
+        <Label  Text="     Name"  TextColor="Black" FontSize="Medium" FontAttributes="Bold" />
+        <Entry x:Name="name" Keyboard="Text" Placeholder="Joe Blow" FontSize="Medium" Margin="20,0"/>
+            <Label  Text="     Email"  TextColor="Black" FontSize="Medium" FontAttributes="Bold" />
+            <Entry  x:Name="email" Keyboard="Email" Placeholder="hermione@granger.com" FontSize="Medium" Margin="20,0"/>
+            <Label  Text="     Phone Number"  TextColor="Black" FontSize="Medium" FontAttributes="Bold"/>
+            <Entry  x:Name="phone" Keyboard="Telephone" Placeholder="XXX-XXX-XXXX" FontSize="Medium" Margin="20,0"/>
+        </StackLayout>
+        <StackLayout  HorizontalOptions="CenterAndExpand">
+            <Button Text="Next" BackgroundColor="White" TextColor="Black" BorderColor="Black" Clicked="To_Venue_Page" FontAttributes="Bold" HorizontalOptions="Fill"/>
+           <!-- <Button Text="Get Data" BackgroundColor="White" TextColor="Black" BorderColor="Black" Clicked="To_Data_Page" FontAttributes="Bold" HorizontalOptions="Fill"/>-->
+         </StackLayout>
+    </StackLayout>
+</ContentPage>

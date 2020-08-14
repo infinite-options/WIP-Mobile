@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WaitInPlace.RegistrationPage">
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="LightGray">
+            <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,15" Clicked="main_page1"/>
+            <StackLayout BackgroundColor="White" Margin="20">
+                <Label  Text="     User Name"  TextColor="Black" FontSize="Medium" />
+                <Entry Keyboard="Email" Placeholder="hermione@granger.com" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0"/>
+                <Label  Text="     Phone Number"  TextColor="Black" FontSize="Medium" />
+                <Entry Keyboard="Telephone" Placeholder="xxx-xxx-xxxx" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0"/>
+                <Label  Text="     Current Location"  TextColor="Black" FontSize="Medium" />
+                <Entry Placeholder="Address" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0"/>
+                <Label  Text="     Mode of Transport"  TextColor="Black" FontSize="Medium" />
+                <Picker Title="Select a Mode of Transport" TitleColor="Gray" Margin="20,0" BackgroundColor="LightGray" FontSize="Medium">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Walk</x:String>
+                            <x:String>Drive</x:String>
+                            <x:String>Public</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Label  Text="     ETA at VENUE"  TextColor="Black" FontSize="Medium" />
+                <Entry x:Name="Eta" Placeholder="00:00  AM/PM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0"/>
+                <Button Text="CONTINUE" TextColor="White" BackgroundColor="Green" BorderColor="Black" FontSize="Large" HorizontalOptions="Fill" FontAttributes="Bold" Clicked="To_Venue_Page"  Margin="95,15"/>
+            </StackLayout>
+        </StackLayout>
+  
+    </ContentPage.Content>
+</ContentPage>

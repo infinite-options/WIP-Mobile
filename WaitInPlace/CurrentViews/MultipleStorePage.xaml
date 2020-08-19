@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+    
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -48,7 +49,7 @@
                     </Grid>
                     <Grid VerticalOptions="Start">
                         <Label x:Name="people1" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                        <Label x:Name="waitTime1" Text="240 min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        <Label x:Name="waitTime1" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                         <Label x:Name="travel1" TextColor="Black" Text="-- min" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
                     </Grid>
@@ -89,7 +90,7 @@
                     </Grid>
                     <Grid VerticalOptions="Start">
                         <Label x:Name="people2" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                        <Label x:Name="waitTime2" Text="240 min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        <Label x:Name="waitTime2" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                         <Label x:Name="travel2" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
                     </Grid>
@@ -130,7 +131,7 @@
                     </Grid>
                     <Grid VerticalOptions="Start">
                         <Label x:Name="people3" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                        <Label x:Name="waitTime3" Text="240 min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        <Label x:Name="waitTime3" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                         <Label x:Name="travel3" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
                     </Grid>
@@ -146,7 +147,7 @@
                         <TimePicker x:Name="timePicker3" Time="10:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                     </Grid>
-                    <Button Text="Join the line" Clicked="Join_Line_1" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="95,0"/>
+                    <Button Text="Join the line" Clicked="Join_Line_3" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="95,0"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

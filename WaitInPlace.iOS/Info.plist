@@ -34,5 +34,7 @@
     <string>WaitInPlace</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This application needs your location to calculate the travel time and display directions to a venue.</string>
 </dict>
 </plist>

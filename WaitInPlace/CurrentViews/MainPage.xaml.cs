@@ -19,15 +19,19 @@ namespace WaitInPlace
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
+
+
     public partial class MainPage : ContentPage
     {
+        string customerId = "";
         protected async Task setCustomerInfo()
         {
             UserInfo newUser = new UserInfo();
             newUser.name = Preferences.Get("name", "");
             newUser.email = Preferences.Get("email", "");
             newUser.phone = Preferences.Get("phone", "");
-
+            newUser.current_lat = 0.0;
+            newUser.current_long = 0.0;
             var newUserJSONString = JsonConvert.SerializeObject(newUser);
             var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
@@ -39,7 +43,103 @@ namespace WaitInPlace
             HttpResponseMessage response = await client.SendAsync(request);
         }
 
-        
+        public ObservableCollection<GetId> GettingId = new ObservableCollection<GetId>();
+        protected async Task getCustomerId()
+        {
+
+            var request = new HttpRequestMessage();
+            string custPhone = "\""+Preferences.Get("phone", "")+"\"";
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/get_customer_id/" + custPhone);
+            request.Method = HttpMethod.Get;
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                HttpContent content = response.Content;
+                var userString = await content.ReadAsStringAsync();
+                JObject get_id = JObject.Parse(userString);
+                this.GettingId.Clear();
+                customerId = "";
+
+                foreach (var m in get_id["result"])
+                {
+                    customerId = m["customer_id"].ToString();
+                }
+                Preferences.Set("customer_id", int.Parse(customerId));
+                //Console.WriteLine("the customer id is:" + customerId);
+            }
+        }
+
+        protected async Task setLocationInfo()
+        {
+            LocationInfo newlocation = new LocationInfo();
+            newlocation.current_lat =  Preferences.Get("lati", 0.0);
+            newlocation.current_long = Preferences.Get("long", 0.0);
+            newlocation.customer_id = Preferences.Get("customer_id", 0);
+            Console.WriteLine("lati{0} and long{1} customer{2}", newlocation.current_lat, newlocation.current_long,newlocation.customer_id);
+            var newUserJSONString = JsonConvert.SerializeObject(newlocation);
+            var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage();
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/update_customer_coords");
+            request.Method = HttpMethod.Put;
+            request.Content = content;
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+        }
+
+
+        private async Task getLoaction()
+        {
+            try
+            {
+                var locate = await Geolocation.GetLastKnownLocationAsync();
+
+                if (locate == null)
+                {
+                    locate = await Geolocation.GetLocationAsync(new GeolocationRequest
+                    {
+                        DesiredAccuracy = GeolocationAccuracy.Medium,
+                        Timeout = TimeSpan.FromSeconds(30)
+                    });
+                    Console.WriteLine($"Latitude: {locate.Latitude}, Longitude: {locate.Longitude}, Altitude: {locate.Altitude}");
+                }
+                Preferences.Set("lati", locate.Latitude);
+                Preferences.Set("long", locate.Longitude);
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+                Console.WriteLine(" Handle not supported on device exception");
+
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+                Console.WriteLine("Handle not enabled on device exception");
+
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+                Console.WriteLine("Handle permission exception");
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Console.WriteLine("Unable to get location");
+            } 
+        }
+
+        private async Task initializingAsync()
+        {
+
+            await getLoaction();
+
+                await setCustomerInfo();
+                await getCustomerId();
+            await setLocationInfo();
+
+        }
         public MainPage()
         {
             InitializeComponent();
@@ -50,7 +150,7 @@ namespace WaitInPlace
             Preferences.Set("name", name.Text);
             Preferences.Set("email", email.Text);
             Preferences.Set("phone", phone.Text);
-            setCustomerInfo();
+            initializingAsync();
             Navigation.PushAsync(new VenuePage());
         }
 

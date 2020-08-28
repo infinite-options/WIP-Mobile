@@ -12,7 +12,7 @@
             <Image x:Name="barcode" Source = "{local:ImageResource WaitInPlace.qrCode.png}" WidthRequest="300" HeightRequest="300" ></Image>
             <Label  Text="Scan upon entry"  FontSize="Micro" HorizontalTextAlignment="Center" BackgroundColor ="Transparent" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End"/>
             <Button x:Name="bump" Text="Bump back in line" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="bump_in" Margin="30,5"/>
-            <Button x:Name="entry" Text="entry store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="entry_Clicked" Margin="30,5"/>
+            <Button x:Name="entry" Text="Enter store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="entry_Clicked" Margin="30,5"/>
             <Button x:Name="exit" Text="exit store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="exit_Clicked" Margin="30,5"/>
         </StackLayout>
     </ContentPage.Content>

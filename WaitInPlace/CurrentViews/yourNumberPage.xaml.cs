@@ -1,6 +1,12 @@
-﻿using System;
+﻿using GoogleApi.Entities.Maps.StaticMaps.Request;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -14,28 +20,64 @@ namespace WaitInPlace
     public partial class yourNumberPage : ContentPage
     {
         string placeInLine;
-        int yourNum;
+        int yourNum=0;
         int origNum;
         int waitTimeOrig2;
         string placeInLine2;
         int reachTime;
         static Countdown countdown;
         int counter;
+        string tokenId="";
 
-        public yourNumberPage(int waitTime, int lineNum)
+        public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
+        protected async Task getTokenId(int venue_id)
+        {
+            var request = new HttpRequestMessage();
+            int custId = Preferences.Get("customer_id", 0);
+            Console.WriteLine("CUSTOMER_ID IN FUNC IS: " + custId);
+            int VenueUid = venue_id;
+            Console.WriteLine("v_uid IN PARSE FUNC IS: " + VenueUid);
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/customer_token/" + custId + "/" + VenueUid);
+            request.Method = HttpMethod.Get;
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            Console.WriteLine("its before if");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                Console.WriteLine("its after if");
+                HttpContent content = response.Content;
+                var userString = await content.ReadAsStringAsync();
+                JObject get_Token_id = JObject.Parse(userString);
+                this.TokenId.Clear();
+                tokenId = "1";
+
+                foreach (var m in get_Token_id["result"])
+                {
+                    tokenId = m["token_number"].ToString();
+                }
+                Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
+                Preferences.Set("token_id", int.Parse(tokenId));
+            }
+            place.Text = tokenId;
+        }
+
+
+        public yourNumberPage(int waitTime, int lineNum,int venue_uid)
         {
             InitializeComponent();
+            getTokenId(venue_uid);
             placeInLine = (lineNum + 1).ToString();
-            waitTimeOrig2 = waitTime;
+            waitTimeOrig2 = (waitTime+5)*60;
 
             reachTime = waitTime - 5;
             placeInLine2 = placeInLine;
 
             origNum = int.Parse(placeInLine);
-            yourNum = int.Parse(placeInLine);
-            place.Text = placeInLine;
+            yourNum = Preferences.Get("token_id",0);
+            //  place.Text = placeInLine;
             countdown = new Countdown();
-            countdown.StartUpdating(waitTime);
+            countdown.StartUpdating(waitTime*60);
             cdLabel.SetBinding(Label.TextProperty,
                     new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
@@ -43,7 +85,7 @@ namespace WaitInPlace
             //DateTime.TryParce(time, out numTime);
             //barcode.Source = ImageSource.FromResource("WaitInPlace.QRcode.jpg");
             //barcode.Source = ImageSource.FromResource("WaitInPlace.qrCode.png", typeof(ImageResourceExtension).GetTypeInfo().Assembly);
-            Device.StartTimer(TimeSpan.FromSeconds(waitTime), () =>
+            Device.StartTimer(TimeSpan.FromMinutes(waitTime), () =>
             {
                 if (origNum < yourNum)
                 {

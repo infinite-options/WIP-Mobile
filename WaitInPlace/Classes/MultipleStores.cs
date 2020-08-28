@@ -10,8 +10,8 @@ namespace WaitInPlace
   public  class MultipleStores
     {
         public int venue_uid { get; set; } 
-        public string entry_time { get; set; } 
-        public string exit_time { get; set; } 
+      //  public string entry_time { get; set; } 
+     //   public string exit_time { get; set; } 
         public int venue_id { get; set; } 
         public string street { get; set; } 
         public string city { get; set; } 

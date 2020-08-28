@@ -27,27 +27,28 @@ namespace WaitInPlace
 
         protected async Task setEntryTime(int venue_uid)
         {
-            Console.WriteLine("hie from set entry");
+            Console.WriteLine("hie from set exit");
             //Console.WriteLine("starting of the get func!!");
-            EntryInfo newentry = new EntryInfo();
-            newentry.user_id = Preferences.Get("customer_id", 0);
-            newentry.venue_uid = venue_uid;
+            EntryInfo nexit = new EntryInfo();
+            // TicketInfo newtkt = new TicketInfo();
+            nexit.user_id = Preferences.Get("customer_id", 0);
+            nexit.venue_uid = venue_uid;
             //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
             DateTime now = DateTime.Now.ToLocalTime();
             string currentTime = (string.Format("{0}", now));
             //string now = "12:02:32";
-            Console.WriteLine("The current time is at entry button " + now.TimeOfDay);
-            newentry.entry_time = currentTime.Substring(9, 9);
+            Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
+            nexit.entry_time = currentTime.Substring(9, 9);
             //Console.WriteLine("the uid1 is :" + venue_uid);
-            var newEntryJSONString = JsonConvert.SerializeObject(newentry);
-            var content = new StringContent(newEntryJSONString, Encoding.UTF8, "application/json");
+            var newExitJSONString = JsonConvert.SerializeObject(nexit);
+            var content = new StringContent(newExitJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
-            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2//entry_time_button");
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/entry_time_button");
             request.Method = HttpMethod.Put;
             request.Content = content;
             var client = new HttpClient();
             HttpResponseMessage response = await client.SendAsync(request);
-            Console.WriteLine("set entry ends");
+            Console.WriteLine("set ecitInfo ends");
         }
 
         protected async Task setExitTime(int venue_uid)
@@ -80,7 +81,7 @@ namespace WaitInPlace
         public BarcodePage(int waitTimeOrig, int placeInLine)
         {
             InitializeComponent();
-            yourNum = placeInLine;
+            yourNum = Preferences.Get("token_id", 0);
             origNum = placeInLine;
             waitTimeOrig2 = waitTimeOrig;
             countdown = new Countdown();
@@ -105,7 +106,8 @@ namespace WaitInPlace
         {
             yourNum += 5;
             yourNumStr = yourNum.ToString();
-            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum));
+            int venue = Preferences.Get("v_uid", 0 );
+            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum, venue));
         }
 
         private void exit_Clicked(object sender, EventArgs e)
@@ -123,6 +125,8 @@ namespace WaitInPlace
             int v_uid = Preferences.Get("v_uid", 1);
             Console.WriteLine("the given v__uid:" + v_uid);
             setEntryTime(v_uid);
+            entry.BackgroundColor = Color.Transparent;
+            entry.TextColor = Color.Transparent;
         }
     }
 }

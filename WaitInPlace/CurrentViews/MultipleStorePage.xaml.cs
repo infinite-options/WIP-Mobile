@@ -20,18 +20,16 @@ namespace WaitInPlace
     public partial class MultipleStorePage : ContentPage
     {
         int lineNum1 = 0, lineNum2 = 0, lineNum3 = 0, waitingTime1=0, waitingTime2=0, waitingTime3=0;
-        string lat1="", long1 = "", lat2 = "", long2 = "", lat3 = "", long3 = "", wait11 = "", wait12 = "", wait21 = "", wait22 = "", wait31 = "", wait32 = "";
-        string customerId = "";
+        string  wait11 = "", wait12 = "", wait21 = "", wait22 = "", wait31 = "", wait32 = "";
+        double lat1,lat2,lat3,long1,long2,long3,dist1,dist2,dist3;
         DateTime eta = DateTime.Now;
 
 
         public ObservableCollection<MultipleStores> MultStores = new ObservableCollection<MultipleStores>();
-        public ObservableCollection<GetId> GettingId = new ObservableCollection<GetId>();
-        private ObservableCollection<MapMarker> markers;
+
 
         protected async Task GetMultStores()
         {
-            Console.WriteLine("hie from multiplestores");
             var request = new HttpRequestMessage();
             string venueId = Preferences.Get("venue_id", "");
             request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/get_venue/" + venueId);
@@ -50,12 +48,11 @@ namespace WaitInPlace
                 string[] cityArray = { "", "", "" };
                 string[] stateArray = { "", "", "" };
                 string[] zipArray = { "", "", "" };
-                string[] latArray = { "", "", "" };
-                string[] longArray = { "", "", "" };
+                double[] latArray = {0,0,0};
+                double[] longArray = { 0,0,0};
                 string[] lineArray = { "", "", "" };
                 string[] waitArray = { "", "", "" };
                 string[] uidArray = { "", "", "" };
-
 
                 int i = 0;
                 foreach (var m in mult_stores["result"])
@@ -64,9 +61,8 @@ namespace WaitInPlace
                     cityArray[i] = m["city"].ToString();
                     stateArray[i] = m["state"].ToString();
                     zipArray[i] = m["zip"].ToString();
-                    latArray[i] = m["lattitude"].ToString();
-                    longArray[i] = m["longitude"].ToString();
-
+                    latArray[i] =double.Parse( m["lattitude"].ToString());
+                    longArray[i] =double.Parse( m["longitude"].ToString());
                     lineArray[i] = m["queue_size"].ToString();
                     waitArray[i] = m["wait_time"].ToString();
                     uidArray[i] = m["venue_uid"].ToString();
@@ -78,18 +74,18 @@ namespace WaitInPlace
                 people1.Text = lineArray[0];
                 people2.Text = lineArray[1];
                 people3.Text = lineArray[2];
-                lat1 = latArray[0];
+
+               
+                lat1 =latArray[0];
                 lat2 = latArray[1];
                 lat3 = latArray[2];
-                long1 = longArray[0];
+                long1 =longArray[0];
                 long2 = longArray[1];
                 long3 = longArray[2];
+                getDistance(lat1, lat2, lat3, long1, long2, long3);
                 Preferences.Set("venue_uid1", uidArray[0]);
                 Preferences.Set("venue_uid2", uidArray[1]);
                 Preferences.Set("venue_uid3", uidArray[2]);
-             //   Console.WriteLine("the uid1 is :" + uidArray[0]);
-             //   Console.WriteLine("the uid1 is :" + uidArray[1]);
-              //  Console.WriteLine("the uid1 is :" + uidArray[2]);
 
                 //convert waitTime string to minutes
                 //1
@@ -125,41 +121,17 @@ namespace WaitInPlace
                     waitTime3.Text = (waitingTime3).ToString();
                 else
                     Console.WriteLine("Could not be parsed.");
+
+                
             }
+          
         }
-        protected async Task getCustomerId()
+   
+
+      
+
+        protected async Task setTicketInfo(int venue_uid, double wait_time, TimeSpan selected_time)
         {
-            var request = new HttpRequestMessage();
-            string custName = "\"" + Preferences.Get("name", "") + "\"";
-            string custEmail = "\"" + Preferences.Get("email", "") + "\"";
-            string custPhone = "\"" + Preferences.Get("phone", "") + "\"";
-
-            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/get_customer_id/" + custName + "/" + custEmail + "/" + custPhone);
-            request.Method = HttpMethod.Get;
-            var client = new HttpClient();
-            HttpResponseMessage response = await client.SendAsync(request);
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                HttpContent content = response.Content;
-                var userString = await content.ReadAsStringAsync();
-                JObject get_id = JObject.Parse(userString);
-                this.GettingId.Clear();
-                customerId = "";
-
-                foreach (var m in get_id["result"])
-                {
-                    customerId = m["customer_id"].ToString();
-                }
-                Console.WriteLine("CUSTOMER_ID IN PARSE FUNC IS: " + customerId);
-                Preferences.Set("customer_id", int.Parse(customerId));
-            }
-        }
-
-        protected async Task setTicketInfo(int venue_uid, double wait_time)
-        {
-            Console.WriteLine("hie from set tkt");
-            Console.WriteLine("starting of the setTicketInfo func!!");
             TicketInfo newTicket = new TicketInfo();
             newTicket.t_user_id = Preferences.Get("customer_id", 0);
             newTicket.t_uid = venue_uid;
@@ -169,6 +141,7 @@ namespace WaitInPlace
             string currentTime = (string.Format("{0}", now));
             Console.WriteLine("The current time is {0}", now);
             newTicket.t_entry_time = "12:02:32" ;// currentTime.Substring(9, 9);
+            newTicket.t_scheduled_time = selected_time.ToString();
             //Console.WriteLine("the uid1 is :" + venue_uid);
             var newTicketJSONString = JsonConvert.SerializeObject(newTicket);
             var content = new StringContent(newTicketJSONString, Encoding.UTF8, "application/json");
@@ -178,67 +151,63 @@ namespace WaitInPlace
             request.Content = content;
             var client = new HttpClient();
             HttpResponseMessage response = await client.SendAsync(request);
-            Console.WriteLine("set tktinfo ends");
         }
-        private async void getLoaction()
+
+        string GetTravelTime(double dist,double speed)
         {
-            Console.WriteLine("hie from location");
-            try
-            {
-                var location = await Geolocation.GetLastKnownLocationAsync();
+            int traveltimeh=0;
+            double traveltime=0.0;
+            string travel="";
 
-                if (location == null)
-                {
-                    location = await Geolocation.GetLocationAsync(new GeolocationRequest
-                    {
-                        DesiredAccuracy = GeolocationAccuracy.Medium,
-                        Timeout= TimeSpan.FromSeconds(30) 
-                    }) ;
-                    Console.WriteLine($"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}");
-                }
-                Console.WriteLine("the location value is :{0}", location);
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Handle not supported on device exception
-                Console.WriteLine(" Handle not supported on device exception");
+            traveltime = Math.Round(dist / speed, 2);
+            traveltimeh = (int)(traveltime);
+            traveltime -= traveltimeh;
+            traveltime *= 100 +( traveltimeh * 60);
+            travel = Math.Round(traveltime,0).ToString() + " min";
+            Console.WriteLine("travel time is " + travel);
 
-            }
-            catch (FeatureNotEnabledException fneEx)
-            {
-                // Handle not enabled on device exception
-                Console.WriteLine("Handle not enabled on device exception");
-
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-                Console.WriteLine("Handle permission exception");
-            }
-            catch (Exception ex)
-            {
-                // Unable to get location
-                Console.WriteLine("Unable to get location");
-            }
-            Console.WriteLine("hie from end of location");
+            return travel;
         }
+
+        double CarSpeed(double dist)
+        {
+            if (dist < 10.0)
+                return  30.0;
+            else
+                return 51.0;
+        }
+
             public MultipleStorePage(string pageName) {
             InitializeComponent();
             GetMultStores();
-            getCustomerId();
-            Console.WriteLine("before calling location");
-            getLoaction();
+
             PageName.Text = pageName;
-            Console.WriteLine("hie from main");
-            var location = new Location(21.705723, 72.998199);
-            var otherLocation = new Location(22.3142, 73.1752);
-            double distance = location.CalculateDistance(otherLocation, DistanceUnits.Kilometers);
 
-
-
-           // Console.WriteLine("the value of wait1 is:" + waitingTime1);
-           // Console.WriteLine("the value of wait2 is:" + waitingTime2);
         }
+        void getDistance(double lat1, double lat2, double lat3, double long1, double long2, double long3)
+        {
+            Console.WriteLine("hello");
+            //for store1
+            var custadd = new Location(Preferences.Get("lati", 0.0), Preferences.Get("long", 0.0));
+            var venadd1 = new Location(lat1, long1);
+            Console.WriteLine("vlat:{0},vlong:{1},clat:{2},clong:{3}", lat1, long1, Preferences.Get("lati", 0.0), Preferences.Get("long", 0.0));
+
+
+            dist1 = Math.Round(custadd.CalculateDistance(venadd1, DistanceUnits.Miles), 2);
+            Console.WriteLine("distance " + dist1);
+            distance1.Text = dist1.ToString() + " mi away";
+
+            //for store2
+            var venadd2 = new Location(lat2, long2);
+            dist2 = Math.Round(custadd.CalculateDistance(venadd2, DistanceUnits.Miles), 2);
+            distance2.Text = dist2.ToString() + " mi away";
+
+            //for store3
+            var venadd3 = new Location(lat3, long3);
+            dist3 = Math.Round(custadd.CalculateDistance(venadd3, DistanceUnits.Miles), 2);
+            distance3.Text = dist3.ToString() + " mi away";
+        }
+
 
         private void Walk_Selected(object sender, EventArgs e)
         {
@@ -249,10 +218,10 @@ namespace WaitInPlace
             Car.BackgroundColor = Color.White;
             Car.BorderColor = Color.Black;
             Preferences.Set("MOT", "walking");
-
-            travel1.Text = "45 min";
-            travel2.Text = "53 min";
-            travel3.Text = "65 min";
+            double walk = 3.1;
+            travel1.Text = GetTravelTime(dist1,walk);
+            travel2.Text = GetTravelTime(dist2, walk);
+            travel3.Text = GetTravelTime(dist3, walk);
         }
 
         private void Bus_Selected(object sender, EventArgs e)
@@ -264,10 +233,10 @@ namespace WaitInPlace
             Car.BackgroundColor = Color.White;
             Car.BorderColor = Color.Black;
             Preferences.Set("MOT", "transit");
-
-            travel1.Text = "35 min";
-            travel2.Text = "23 min";
-            travel3.Text = "45 min";
+            double bus = 13.6;
+            travel1.Text = GetTravelTime(dist1, bus);
+            travel2.Text = GetTravelTime(dist2, bus);
+            travel3.Text = GetTravelTime(dist3, bus);
         }
 
         private void Car_Selected(object sender, EventArgs e)
@@ -280,50 +249,48 @@ namespace WaitInPlace
             Bus.BorderColor = Color.Black;
             Preferences.Set("MOT", "driving");
 
-            travel1.Text = "7 min";
-            travel2.Text = "13 min";
-            travel3.Text = "17 min";
+            travel1.Text = GetTravelTime(dist1, 51);// CarSpeed(dist1));
+            travel2.Text = GetTravelTime(dist2, CarSpeed(dist2));
+            travel3.Text = GetTravelTime(dist3, CarSpeed(dist3));
         }
 
         private void Join_Line_1(object sender, EventArgs e)
         {
-            Console.WriteLine("hie from join 1");
-            //selectedTime = timePicker1.Time;
-            if (!double.TryParse(lat1, out double lat)) return;
-            if (!double.TryParse(long1, out double lng)) return;
-            Preferences.Set("latitude", lat);
-            Preferences.Set("longitude", lng);
+            TimeSpan selectedTime = timePicker1.Time;
+            Console.WriteLine("selected time {0}",selectedTime);
+            //   if (!double.TryParse(lat1, out double lat)) return;
+            //   if (!double.TryParse(long1, out double lng)) return;
+            Preferences.Set("latitude", lat1);
+            Preferences.Set("longitude", long1);
             int v_uid1 = int.Parse(Preferences.Get("venue_uid1", ""));
             double wait1 = waitingTime1;
-            setTicketInfo(v_uid1,wait1);
-            Console.WriteLine("set tktinfo in join1 done");
-            Navigation.PushAsync(new yourNumberPage(waitingTime1, lineNum1));
+            setTicketInfo(v_uid1,wait1, selectedTime);
+            Navigation.PushAsync(new yourNumberPage(waitingTime1, lineNum1,v_uid1));
             //Navigation.PushAsync(new ConfirmatonPage(lineNum1, travel1.Text, waitingTime1,distance11, address11.Text, selectedTime));
         }
         private void Join_Line_2(object sender, EventArgs e)
         {
-            Console.WriteLine("hie from join 2");
-            //selectedTime = timePicker2.Time;
-            if (!double.TryParse(lat2, out double lat)) return;
-            if (!double.TryParse(long2, out double lng)) return;
-            Preferences.Set("latitude", lat);
-            Preferences.Set("longitude", lng);
+            TimeSpan selectedTime = timePicker2.Time;
+          //  if (!double.TryParse(lat2, out double lat)) return;
+           // if (!double.TryParse(long2, out double lng)) return;
+            Preferences.Set("latitude", lat2);
+            Preferences.Set("longitude", long2);
             int v_uid2 = int.Parse(Preferences.Get("venue_uid2", ""));
             double wait2 = waitingTime2;
-            setTicketInfo(v_uid2,wait2);
-            Navigation.PushAsync(new yourNumberPage(waitingTime2, lineNum2));
+            setTicketInfo(v_uid2,wait2, selectedTime);
+            Navigation.PushAsync(new yourNumberPage(waitingTime2, lineNum2,v_uid2));
         }
         private void Join_Line_3(object sender, EventArgs e)
         {
-            //selectedTime = timePicker3.Time;
-            if (!double.TryParse(lat3, out double lat)) return;
-            if (!double.TryParse(long3, out double lng)) return;
-            Preferences.Set("latitude", lat); 
-            Preferences.Set("longitude", lng);
+            TimeSpan selectedTime = timePicker3.Time;
+          //  if (!double.TryParse(lat3, out double lat)) return;
+          //  if (!double.TryParse(long3, out double lng)) return;
+            Preferences.Set("latitude", lat3); 
+            Preferences.Set("longitude", long3);
             int v_uid3 =  int.Parse(Preferences.Get("venue_uid3", ""));
             double wait3 = waitingTime3;
-            setTicketInfo(v_uid3,wait3); 
-            Navigation.PushAsync(new yourNumberPage(waitingTime3, lineNum3));
+            setTicketInfo(v_uid3,wait3, selectedTime);
+            Navigation.PushAsync(new yourNumberPage(waitingTime3, lineNum3,v_uid3));
         }
 
         private void main_page5(object sender, EventArgs e)

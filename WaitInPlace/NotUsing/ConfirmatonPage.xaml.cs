@@ -1,9 +1,10 @@
-﻿using System;
+﻿//using Android.Preferences;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -65,7 +66,8 @@ namespace WaitInPlace
         {
             confirmButton.TextColor = Color.White;
             confirmButton.BackgroundColor = Color.Green;
-            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum));
+            int venue=Preferences.Get("v_uid",0);
+            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum,venue));
         }
     }
 }

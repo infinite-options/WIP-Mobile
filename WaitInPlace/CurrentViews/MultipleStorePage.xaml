@@ -33,12 +33,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                       <!-- <Grid.ColumnDefinitions>
-                           <ColumnDefinition Width="250"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>-->
+                        </Grid.ColumnDefinitions>
                         <Label x:Name="address11" Text="18 San Fernando Ave,San Jose CA, 95192"  Grid.Row="0" Grid.Column="0" TextColor="Black" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                        <!--<Label x:Name="distance1" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>-->
+                        <Label x:Name="distance1" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
                     </Grid>
                     <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
@@ -61,7 +61,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="apx entry time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                        <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
                         <TimePicker x:Name="timePicker1" Time="11:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                         <!--<Button Text="Join the line" Clicked="Join_Line_1" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="2" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="2"/>-->
@@ -74,12 +74,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                      <!--  <Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>-->
+                        </Grid.ColumnDefinitions>
                         <Label x:Name="address21" Text="273 Clark St, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                       <!-- <Label x:Name="distance2" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>-->
+                        <Label x:Name="distance2" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
                     </Grid>
                     <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
@@ -102,7 +102,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="apx entry time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                        <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
                         <TimePicker x:Name="timePicker2" Time="12:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                     </Grid>
@@ -115,13 +115,12 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                     <!--   <Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>-->
+                        </Grid.ColumnDefinitions>
                         <Label x:Name="address31" Text="120 Park Ave, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                      <!--  <Label x:Name="distance3" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>-->
-
+                       <Label x:Name="distance3" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                     </Grid>
                     <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
 
@@ -143,7 +142,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Text="apx entry time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                        <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
                         <TimePicker x:Name="timePicker3" Time="10:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                     </Grid>

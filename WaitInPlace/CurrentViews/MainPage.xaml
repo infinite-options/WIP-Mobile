@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local ="clr-namespace:WaitInPlace"
-             x:Class="WaitInPlace.MainPage">
+             x:Class="WaitInPlace.MainPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
     
     <ScrollView>
         <StackLayout x:Name="main" BackgroundColor="#E6E6E6">

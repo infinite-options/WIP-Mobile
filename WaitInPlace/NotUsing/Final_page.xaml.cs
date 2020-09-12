@@ -43,7 +43,7 @@ namespace WaitInPlace
                  }
                 readyButton.Text = "NOW READY";
                 readyButton.BackgroundColor = Color.Green;
-                Navigation.PushAsync(new BarcodePage(waitTimeOrig2, yourNum));
+               // Navigation.PushAsync(new BarcodePage(waitTimeOrig2, yourNum));
                 return false; // True = Repeat again, False = Stop the timer
             });
         }

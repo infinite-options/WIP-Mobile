@@ -8,10 +8,12 @@
              xmlns:local ="clr-namespace:WaitInPlace"
              x:Class="WaitInPlace.MultipleStorePage">
 
-
-        <StackLayout BackgroundColor="Firebrick">
-        <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page5"/>
-        <Label x:Name="PageName" TextColor="White" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0" FontAttributes="Bold"  />
+        
+        <StackLayout BackgroundColor="#E6E6E6">
+        <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
+        <!--<Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page5"/>-->
+        <Label x:Name="PageName" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0" FontAttributes="Bold"  />
+        <Label Text="Mode of Transport" TextColor="Black" FontSize="Small" HorizontalOptions="Center" VerticalOptions="Center" />
         <Grid VerticalOptions="Start" Margin="0,20">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -22,9 +24,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.walkingIcon.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="60" HeightRequest="130" CornerRadius="30" HorizontalOptions="Center" />
-            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.busIcon.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="60" HeightRequest="140" CornerRadius="30" HorizontalOptions="Center"/>
-            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.carIcon.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="60" HeightRequest="130" CornerRadius="30" HorizontalOptions="Center" />
+            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.walkingIcon.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
+            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.busIcon.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center"/>
+            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.carIcon.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
         </Grid>
         <ScrollView>
             <StackLayout>
@@ -34,8 +36,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="address11" Text="18 San Fernando Ave,San Jose CA, 95192"  Grid.Row="0" Grid.Column="0" TextColor="Black" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                         <Label x:Name="distance1" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
@@ -66,7 +68,7 @@
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                         <!--<Button Text="Join the line" Clicked="Join_Line_1" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="2" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="2"/>-->
                     </Grid>
-                    <Button Text="Join the line" Clicked="Join_Line_1" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="95,0"/>
+                    <Button Text="Join the line" Clicked="Join_Line_1" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0" HeightRequest="50"/>
                 </StackLayout>
 
                 <StackLayout BackgroundColor="White" Margin="40,20">
@@ -75,8 +77,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="address21" Text="273 Clark St, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                         <Label x:Name="distance2" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
@@ -106,7 +108,7 @@
                         <TimePicker x:Name="timePicker2" Time="12:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                     </Grid>
-                    <Button Text="Join the line" Clicked="Join_Line_2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="95,0"/>
+                    <Button Text="Join the line" Clicked="Join_Line_2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
                 </StackLayout>
 
 
@@ -116,8 +118,8 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.3*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="address31" Text="120 Park Ave, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                        <Label x:Name="distance3" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
@@ -146,7 +148,7 @@
                         <TimePicker x:Name="timePicker3" Time="10:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
                         <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
                     </Grid>
-                    <Button Text="Join the line" Clicked="Join_Line_3" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="95,0"/>
+                    <Button Text="Join the line" Clicked="Join_Line_3" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

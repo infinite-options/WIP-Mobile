@@ -7,20 +7,24 @@
              x:Class="WaitInPlace.yourNumberPage">
     
     <ContentPage.Content>
-        <StackLayout BackgroundColor="Firebrick">
-            <Label x:Name="cdLabel" HorizontalOptions="CenterAndExpand" FontSize="Title" TextColor="White" FontAttributes="Bold" Margin="20"/>
-            <StackLayout BackgroundColor="Green"  Margin="75,0" HorizontalOptions="Fill" VerticalOptions="Center">
+        <StackLayout BackgroundColor="#E6E6E6">
+            <Label x:Name="PageName" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0" FontAttributes="Bold"  />
+            <Label x:Name="address1" TextColor="Black" FontSize="Small" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="10,0,10,10"/>
+            <Label x:Name="cdLabel" HorizontalOptions="CenterAndExpand" FontSize="Title" TextColor="Black" FontAttributes="Bold" Margin="20,0"/>
+                <ScrollView>
+                <StackLayout>
+                    <StackLayout BackgroundColor="#0071BC"  Margin="75,0" HorizontalOptions="Fill" VerticalOptions="Center">
                 <Label  Text=""  FontSize="Subtitle" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White"/>
                 <Label  Text="Your Number is"  FontSize="Medium" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White"/>
                 <Label  x:Name="place" FontSize="Header" HorizontalTextAlignment="Center" BackgroundColor="Transparent" TextColor="White"/>
-                <Button x:Name="readyButton" Text="Wait in place" BackgroundColor="LightSalmon" TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="Large"/>
+                        <Button x:Name="readyButton" Text="Wait in place" BackgroundColor="#C12720" TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="Large"/>
             </StackLayout>
-            <Button x:Name="direction" Text="get Directions" BackgroundColor="Honeydew" TextColor="Black" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="direction_Clicked" Margin="100,20"/>
-            <Button x:Name="bump" Text="Bump back in line" BackgroundColor="LightCoral" TextColor="Black" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="bump_in" Margin="75,20"/>
-            <Button Text="Get out of line" BackgroundColor="LightCoral" TextColor="Black" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="main_page5" Margin="75,20"/>
-           
-
-
+                    <Button x:Name="direction" Text="get Directions" BackgroundColor="#0071BC" TextColor="Black" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="direction_Clicked" Margin="75,20" CornerRadius="30"/>
+                    <Button x:Name="bump" Text="Bump back in line" BackgroundColor="White" TextColor="Black" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="bump_in" Margin="75,20" CornerRadius="30"/>
+                    <Button Text="Get out of line" BackgroundColor="#C12720" TextColor="White" HorizontalOptions="FillAndExpand" BorderColor="Black" BorderWidth="2" FontSize="Large" Clicked="main_page5" Margin="75,20" CornerRadius="30"/>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
+            
     </ContentPage.Content>
 </ContentPage>

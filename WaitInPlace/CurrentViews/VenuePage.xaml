@@ -4,32 +4,38 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:local ="clr-namespace:WaitInPlace"
              x:Class="WaitInPlace.VenuePage">
+    
     <ContentPage.Content>
+        <StackLayout BackgroundColor="#E6E6E6">
+           <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page2"/>-->
+            <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
 
-        <StackLayout BackgroundColor="Firebrick">
-            <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page2"/>
-            <Label Text="VENUE CATEGORIES" TextColor="White" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold"  Margin="20,0"/>
-            <Button x:Name="cat1" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat1"/>
-            <Button x:Name="cat2" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat2"/>
-            <Button x:Name="cat3" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat3"/>
-            <Button x:Name="cat4" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat4"/>
-            <Button x:Name="cat5" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat5"/>
-            <Button x:Name="cat6" Text="" BackgroundColor="White" TextColor="Black" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat6"/>
+            <Label Text="VENUE CATEGORIES" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold"  Margin="20,0"/>
+            <ScrollView>
+                <StackLayout>
+                    <Button x:Name="cat1" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat1"/>
+                    <Button x:Name="cat2" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat2"/>
+                    <Button x:Name="cat3" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat3"/>
+                    <Button x:Name="cat4" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat4"/>
+                    <Button x:Name="cat5" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat5"/>
+                    <Button x:Name="cat6" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat6"/>
 
-            <!--
-            <ListView x:Name="VenueCatListView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Button Text="{Binding category}" BackgroundColor="White" TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="45,0" Clicked="To_grocery_page" VerticalOptions="Center"></Button>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView> -->
+                    <!--
+                    <ListView x:Name="VenueCatListView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Button Text="{Binding category}" BackgroundColor="White" TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="45,0" Clicked="To_grocery_page" VerticalOptions="Center"></Button>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>-->
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-        
     </ContentPage.Content>
 </ContentPage>

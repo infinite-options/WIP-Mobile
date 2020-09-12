@@ -5,15 +5,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:local ="clr-namespace:WaitInPlace"
-             x:Class="WaitInPlace.BarcodePage">
+             x:Class="WaitInPlace.BarcodePage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor ="White"
+    >
+
     <ContentPage.Content>
-        <StackLayout x:Name="barcodeStack" HorizontalOptions="Center" BackgroundColor="White" Margin="10">
-            <Label x:Name="cdLabel" HorizontalOptions="CenterAndExpand" FontSize="Title" TextColor="Black" FontAttributes="Bold"/>
-            <Image x:Name="barcode" Source = "{local:ImageResource WaitInPlace.qrCode.png}" WidthRequest="300" HeightRequest="300" ></Image>
-            <Label  Text="Scan upon entry"  FontSize="Micro" HorizontalTextAlignment="Center" BackgroundColor ="Transparent" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End"/>
-            <Button x:Name="bump" Text="Bump back in line" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="bump_in" Margin="30,5"/>
-            <Button x:Name="entry" Text="Enter store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="entry_Clicked" Margin="30,5"/>
-            <Button x:Name="exit" Text="exit store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="exit_Clicked" Margin="30,5"/>
-        </StackLayout>
+        <StackLayout x:Name="barcodeStack" HorizontalOptions="Center" BackgroundColor="Transparent" Margin="10,0">
+            <Label x:Name="PageName" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0,20,10" FontAttributes="Bold"  />
+            <Label x:Name="address1" TextColor="Black" FontSize="Small" HorizontalTextAlignment="Center" HorizontalOptions="Center" Margin="10,0"/>
+                <Label x:Name="cdLabel" HorizontalOptions="CenterAndExpand" FontSize="Title" TextColor="Black" FontAttributes="Bold"/>
+                <ScrollView>
+                    <StackLayout>
+                        <Image x:Name="barcode" Source = "{local:ImageResource WaitInPlace.qrCode.png}" WidthRequest="300" HeightRequest="300" ></Image>
+                        <Label  Text="Scan upon entry"  FontSize="Micro" HorizontalTextAlignment="Center" BackgroundColor ="Transparent" TextColor="Black" HorizontalOptions="Center" VerticalOptions="End"/>
+                        <Button x:Name="bump" Text="Bump back in line" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="bump_in" Margin="30,5"/>
+                        <Button x:Name="entry" Text="Enter store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="entry_Clicked" Margin="30,5"/>
+                        <Button x:Name="exit" Text="exit store" BackgroundColor="Black" TextColor="White" HorizontalOptions="FillAndExpand" FontSize="Large" Clicked="exit_Clicked" Margin="30,5"/>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -78,7 +78,7 @@ namespace WaitInPlace
           }
 
         
-        public BarcodePage(int waitTimeOrig, int placeInLine)
+        public BarcodePage(int waitTimeOrig, int placeInLine,string pagename)
         {
             InitializeComponent();
             yourNum = Preferences.Get("token_id", 0);
@@ -89,6 +89,8 @@ namespace WaitInPlace
             cdLabel.SetBinding(Label.TextProperty,
                 new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
+             address1.Text=Preferences.Get("add", "");
+            PageName.Text = pagename;
             
             Device.StartTimer(TimeSpan.FromMinutes(5), () =>
             {
@@ -107,7 +109,7 @@ namespace WaitInPlace
             yourNum += 5;
             yourNumStr = yourNum.ToString();
             int venue = Preferences.Get("v_uid", 0 );
-            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum, venue));
+            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum, venue,address1.Text,PageName.Text));
         }
 
         private void exit_Clicked(object sender, EventArgs e)

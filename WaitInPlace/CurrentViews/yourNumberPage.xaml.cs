@@ -26,7 +26,7 @@ namespace WaitInPlace
         string placeInLine2;
         int reachTime;
         static Countdown countdown;
-        int counter;
+        readonly int counter;
         string tokenId="";
 
         public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
@@ -62,13 +62,22 @@ namespace WaitInPlace
             place.Text = tokenId;
         }
 
+        async void initialization(int venue_uid)
+        {
+            await getTokenId(venue_uid);
+        }
 
-        public yourNumberPage(int waitTime, int lineNum,int venue_uid)
+
+        public yourNumberPage(int waitTime, int lineNum,int venue_uid,string address, string pagename)
         {
             InitializeComponent();
-            getTokenId(venue_uid);
+            initialization(venue_uid);
+
+            PageName.Text = pagename;
+            address1.Text = address;
+            Preferences.Set("add", address1.Text);
             placeInLine = (lineNum + 1).ToString();
-            waitTimeOrig2 = (waitTime+5)*60;
+            waitTimeOrig2 = waitTime;
 
             reachTime = waitTime - 5;
             placeInLine2 = placeInLine;
@@ -77,27 +86,23 @@ namespace WaitInPlace
             yourNum = Preferences.Get("token_id",0);
             //  place.Text = placeInLine;
             countdown = new Countdown();
-            countdown.StartUpdating(waitTime*60);
+            countdown.StartUpdating(waitTimeOrig2);
             cdLabel.SetBinding(Label.TextProperty,
                     new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
-            //DateTime numTime;
-            //DateTime.TryParce(time, out numTime);
-            //barcode.Source = ImageSource.FromResource("WaitInPlace.QRcode.jpg");
-            //barcode.Source = ImageSource.FromResource("WaitInPlace.qrCode.png", typeof(ImageResourceExtension).GetTypeInfo().Assembly);
-            Device.StartTimer(TimeSpan.FromMinutes(waitTime), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(waitTimeOrig2), () =>
             {
-                if (origNum < yourNum)
+                /*if (origNum < yourNum)
                 {
                     origNum += 5;
                     return true;
-                }
+                }*/
                 //countdown = new Countdown();
                 
 
                 readyButton.Text = "NOW READY";
-                readyButton.BackgroundColor = Color.Green;
-                Navigation.PushAsync(new BarcodePage(yourNum, waitTimeOrig2));
+                readyButton.BackgroundColor = Color.FromHex("#0071BC");
+                Navigation.PushAsync(new BarcodePage(waitTimeOrig2, yourNum,PageName.Text));
                 return false; // True = Repeat again, False = Stop the timer
             });
         }
@@ -112,9 +117,9 @@ namespace WaitInPlace
         {
             yourNum += 5;
             place.Text = yourNum.ToString();
-            countdown.StartUpdating(waitTimeOrig2);
+            countdown.StartUpdating(30);
 
-            //Navigation.PushAsync(new BarcodePage());
+            Navigation.PushAsync(new BarcodePage(waitTimeOrig2,yourNum,PageName.Text));
         }
 
 

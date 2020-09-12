@@ -142,6 +142,7 @@ namespace WaitInPlace
         }
         public MainPage()
         {
+
             InitializeComponent();
         }
 

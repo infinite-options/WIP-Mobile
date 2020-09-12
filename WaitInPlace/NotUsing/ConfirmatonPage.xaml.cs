@@ -67,7 +67,7 @@ namespace WaitInPlace
             confirmButton.TextColor = Color.White;
             confirmButton.BackgroundColor = Color.Green;
             int venue=Preferences.Get("v_uid",0);
-            Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum,venue));
+          //  Navigation.PushAsync(new yourNumberPage(waitTimeOrig2, yourNum,venue));
         }
     }
 }

@@ -126,9 +126,7 @@ namespace WaitInPlace
             }
           
         }
-   
 
-      
 
         protected async Task setTicketInfo(int venue_uid, double wait_time, TimeSpan selected_time)
         {
@@ -211,8 +209,8 @@ namespace WaitInPlace
 
         private void Walk_Selected(object sender, EventArgs e)
         {
-            Walk.BackgroundColor = Color.LightGreen;
-            Walk.BorderColor = Color.Green;
+            Walk.BackgroundColor = Color.FromHex("#0071BC");
+            Walk.BorderColor = Color.FromHex("#0071BC");
             Bus.BackgroundColor = Color.White;
             Bus.BorderColor = Color.Black;
             Car.BackgroundColor = Color.White;
@@ -226,8 +224,8 @@ namespace WaitInPlace
 
         private void Bus_Selected(object sender, EventArgs e)
         {
-            Bus.BackgroundColor = Color.LightGreen;
-            Bus.BorderColor = Color.Green;
+            Bus.BackgroundColor = Color.FromHex("#0071BC");
+            Bus.BorderColor = Color.FromHex("#0071BC");
             Walk.BackgroundColor = Color.White;
             Walk.BorderColor = Color.Black;
             Car.BackgroundColor = Color.White;
@@ -241,8 +239,8 @@ namespace WaitInPlace
 
         private void Car_Selected(object sender, EventArgs e)
         {
-            Car.BackgroundColor = Color.LightGreen;
-            Car.BorderColor = Color.Green;
+            Car.BackgroundColor = Color.FromHex("#0071BC");
+            Car.BorderColor = Color.FromHex("#0071BC");
             Walk.BackgroundColor = Color.White;
             Walk.BorderColor = Color.Black;
             Bus.BackgroundColor = Color.White;
@@ -265,7 +263,7 @@ namespace WaitInPlace
             int v_uid1 = int.Parse(Preferences.Get("venue_uid1", ""));
             double wait1 = waitingTime1;
             setTicketInfo(v_uid1,wait1, selectedTime);
-            Navigation.PushAsync(new yourNumberPage(waitingTime1, lineNum1,v_uid1));
+            Navigation.PushAsync(new yourNumberPage(waitingTime1, lineNum1,v_uid1,address11.Text,PageName.Text));
             //Navigation.PushAsync(new ConfirmatonPage(lineNum1, travel1.Text, waitingTime1,distance11, address11.Text, selectedTime));
         }
         private void Join_Line_2(object sender, EventArgs e)
@@ -278,7 +276,7 @@ namespace WaitInPlace
             int v_uid2 = int.Parse(Preferences.Get("venue_uid2", ""));
             double wait2 = waitingTime2;
             setTicketInfo(v_uid2,wait2, selectedTime);
-            Navigation.PushAsync(new yourNumberPage(waitingTime2, lineNum2,v_uid2));
+            Navigation.PushAsync(new yourNumberPage(waitingTime2, lineNum2,v_uid2, address21.Text, PageName.Text));
         }
         private void Join_Line_3(object sender, EventArgs e)
         {
@@ -290,7 +288,7 @@ namespace WaitInPlace
             int v_uid3 =  int.Parse(Preferences.Get("venue_uid3", ""));
             double wait3 = waitingTime3;
             setTicketInfo(v_uid3,wait3, selectedTime);
-            Navigation.PushAsync(new yourNumberPage(waitingTime3, lineNum3,v_uid3));
+            Navigation.PushAsync(new yourNumberPage(waitingTime3, lineNum3,v_uid3, address31.Text, PageName.Text));
         }
 
         private void main_page5(object sender, EventArgs e)

@@ -15,6 +15,7 @@
     <None Remove="carIcon.png" />
     <None Remove="qrCode.png" />
     <None Remove="walkingIcon.png" />
+    <None Remove="WIP_LOGO_Blue.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
     <EmbeddedResource Include="carIcon.png" />
     <EmbeddedResource Include="qrCode.png" />
     <EmbeddedResource Include="walkingIcon.png" />
+    <EmbeddedResource Include="WIP_LOGO_Blue.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.495" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="WIP_LOGO_Blue.png" />
   </ItemGroup>
 
   <ItemGroup>

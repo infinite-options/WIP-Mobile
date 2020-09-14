@@ -19,7 +19,9 @@ namespace WaitInPlace
         public string zip { get; set; } 
         public string lattitude { get; set; } 
         public string longitude { get; set; } 
-        public string wait_time { get; set; } 
+        public string wait_time { get; set; }
+
+        public string address { get; set; }
         public int queue_size { get; set; } 
     }
 }

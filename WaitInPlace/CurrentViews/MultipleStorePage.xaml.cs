@@ -22,6 +22,12 @@ namespace WaitInPlace
         int lineNum1 = 0, lineNum2 = 0, lineNum3 = 0, waitingTime1=0, waitingTime2=0, waitingTime3=0;
         string  wait11 = "", wait12 = "", wait21 = "", wait22 = "", wait31 = "", wait32 = "";
         double lat1,lat2,lat3,long1,long2,long3,dist1,dist2,dist3;
+
+        private void btn3_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
         DateTime eta = DateTime.Now;
 
 
@@ -67,13 +73,19 @@ namespace WaitInPlace
                     waitArray[i] = m["wait_time"].ToString();
                     uidArray[i] = m["venue_uid"].ToString();
                     i++;
+                    this.MultStores.Add(new MultipleStores()
+                    {
+                        address = m["street"].ToString() + "," + m["city"].ToString() + "," + m["state"].ToString()+","+ m["zip"].ToString(),
+                    }); ;
                 }
+
                 address11.Text = streetArray[0] + ", " + cityArray[0] + ", " + stateArray[0] + ", " + zipArray[0];
                 address21.Text = streetArray[1] + ", " + cityArray[1] + ", " + stateArray[1] + ", " + zipArray[1];
                 address31.Text = streetArray[2] + ", " + cityArray[2] + ", " + stateArray[2] + ", " + zipArray[2];
                 people1.Text = lineArray[0];
                 people2.Text = lineArray[1];
                 people3.Text = lineArray[2];
+
 
                
                 lat1 =latArray[0];
@@ -181,6 +193,11 @@ namespace WaitInPlace
 
             PageName.Text = pageName;
 
+            StoreListView.RefreshCommand = new Command(() =>
+            {
+                GetMultStores();
+                StoreListView.IsRefreshing = false;
+            });
         }
         void getDistance(double lat1, double lat2, double lat3, double long1, double long2, double long3)
         {

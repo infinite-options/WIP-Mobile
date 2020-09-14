@@ -14,28 +14,48 @@
     </ContentPage.BackgroundColor>
     <ContentPage.Content>
 
-            <StackLayout BackgroundColor="#E6E6E6">
-           <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="#0071BC" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page3"/>-->
+        <StackLayout BackgroundColor="#E6E6E6">
+            <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="#0071BC" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page3"/>-->
             <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
             <ScrollView>
                 <StackLayout>
-            <Label x:Name="catLabel"  Text="" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="20,0"/>
-                    <Button x:Name="Store1" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Safeway_page"/>
-                    <Button x:Name="Store2" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_TraderJ_page"/>
+                    <Label x:Name="catLabel"  Text="" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="20,0"/>
+                    <StackLayout>
+                        <ListView x:Name="GroceryListView" MinimumHeightRequest="100" 
+             SeparatorVisibility="None"
+             HasUnevenRows="True" >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <ViewCell.View>
+
+                                            <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackLayout Grid.Column="0" Margin="10,5,0,5">
+                                                    <Button Text="{Binding venue_name}" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Safeway_page"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </ViewCell.View>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                    <!--<Button x:Name="Store2" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_TraderJ_page"/>
                     <Button x:Name="Store3" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Sprout_page"/>
                     <Button x:Name="Store4" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_WholeFoods_page"/>
                     <Button x:Name="Store5" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_Lucky_page"/>
                     <Button x:Name="Store6" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontAttributes="Bold" FontSize="Medium" Margin="45,10" Clicked="To_NobHill_page"/>
-            <Grid>
-                <Label x:Name="id1" Grid.Row="0" Grid.Column="0" TextColor="Transparent" />
-                <Label x:Name="id2" Grid.Row="0" Grid.Column="1" TextColor="Transparent" />
-                <Label x:Name="id3" Grid.Row="0" Grid.Column="2" TextColor="Transparent"  />
-                <Label x:Name="id4" Grid.Row="0" Grid.Column="3" TextColor="Transparent" />
-                <Label x:Name="id5" Grid.Row="0" Grid.Column="4" TextColor="Transparent" />
-                <Label x:Name="id6" Grid.Row="0" Grid.Column="5" TextColor="Transparent" />
-            </Grid>
+          
+-->
                 </StackLayout>
-        </ScrollView>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

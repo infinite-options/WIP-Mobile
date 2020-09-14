@@ -15,27 +15,37 @@
             <Label Text="VENUE CATEGORIES" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold"  Margin="20,0"/>
             <ScrollView>
                 <StackLayout>
-                    <Button x:Name="cat1" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat1"/>
-                    <Button x:Name="cat2" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat2"/>
-                    <Button x:Name="cat3" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat3"/>
-                    <Button x:Name="cat4" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat4"/>
-                    <Button x:Name="cat5" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat5"/>
-                    <Button x:Name="cat6" Text="" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Medium" FontAttributes="Bold" Margin="45,10" Clicked="To_cat6"/>
 
-                    <!--
-                    <ListView x:Name="VenueCatListView">
+
+                    <ListView x:Name="VenueCatListView" MinimumHeightRequest="100" 
+             SeparatorVisibility="None"
+             HasUnevenRows="True" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout>
-                                        <Button Text="{Binding category}" BackgroundColor="White" TextColor="Black" HorizontalOptions="FillAndExpand" FontSize="Medium" Margin="45,0" Clicked="To_grocery_page" VerticalOptions="Center"></Button>
-                                    </StackLayout>
+                                    <ViewCell.View>
+
+                                        <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="0" Margin="10,5,0,5">
+                                                <Button Text="{Binding category}" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" 
+                                                         VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" Margin="45,8" Clicked="display_category"/>
+                                            </StackLayout>
+                                        </Grid>
+                                    </ViewCell.View>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-                    </ListView>-->
+                    </ListView>
                 </StackLayout>
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+

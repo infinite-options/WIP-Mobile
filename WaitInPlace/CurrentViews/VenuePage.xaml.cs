@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,11 +14,13 @@ using Xamarin.Forms.Xaml;
 
 namespace WaitInPlace
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VenuePage : ContentPage
     {
         public ObservableCollection<VenueCategories> VenueCat = new ObservableCollection<VenueCategories>();
 
+        ArrayList catArray = new ArrayList();
 
         protected async Task GetVenueCat()
         {
@@ -37,71 +40,60 @@ namespace WaitInPlace
                 //Console.WriteLine("user_info['result']: " + venue_cat["result"]);
                 //Console.WriteLine("user_info: " + venue_cat);
 
-                string[] catArray = { "", "", "", "", "", "" };
+               // string[] catArray = { "", "", "", "", "", "" };
                 int i = 0;
                 foreach (var m in venue_cat["result"])
                 {
-                    catArray[i] = m["category"].ToString();
-                    /*this.VenueCat.Add(new VenueCategories()
+                    catArray.Add(m["category"].ToString());
+                    this.VenueCat.Add(new VenueCategories()
                     {
                         category = m["category"].ToString(),
-                    });*/
+                        
+                    });;
                     i++;
                 }
-                cat1.Text = catArray[0];
-                cat2.Text = catArray[1];
-                cat3.Text = catArray[2];
-                cat4.Text = catArray[3];
-                cat5.Text = catArray[4];
-                cat6.Text = catArray[5];
-                //VenueCatListView.ItemsSource = VenueCat;
+              /*  cat1.Text = (string)catArray[0];
+                cat2.Text = (string)catArray[1];
+                cat3.Text = (string)catArray[2];
+                cat4.Text = (string)catArray[3];
+                cat5.Text = (string)catArray[4];
+                cat6.Text = catArray[5];*/
+                VenueCatListView.ItemsSource = VenueCat;
             }
         }
         public VenuePage()
         {
             InitializeComponent();
             GetVenueCat();
-            /*VenueCatListView.RefreshCommand = new Command(() =>
+            VenueCatListView.RefreshCommand = new Command(() =>
             {
                 GetVenueCat();
                 VenueCatListView.IsRefreshing = false;
-            });*/
+            });
         }
 
-        private void To_cat1(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat1.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
-        private void To_cat2(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat2.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
-        private void To_cat3(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat3.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
-        private void To_cat4(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat4.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
-        private void To_cat5(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat5.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
-        private void To_cat6(object sender, EventArgs e)
-        {
-            Preferences.Set("venueCat", cat6.Text);
-            Navigation.PushAsync(new GroceryPage());
-        }
         private void main_page2(object sender, EventArgs e)
         {
-            Preferences.Set("venueCat", cat1.Text);
+          //  Preferences.Set("venueCat", cat1.Text);
             Navigation.PushAsync(new MainPage());
+        }
+
+        async void display_category(Object sender, EventArgs e) 
+        {
+            var buttonClickHandler = (Button)sender;
+          /*  Console.WriteLine("the text of the button"+ buttonClickHandler.Text);
+
+            StackLayout ParentStackLayout = (StackLayout)buttonClickHandler.Parent;
+            Button newcat1 = (Button)ParentStackLayout.Children[0];
+            string name = newcat1.Text;
+            Console.WriteLine("the 1st name is"+name);*/
+            Preferences.Set("venueCat", buttonClickHandler.Text);
+            Navigation.PushAsync(new GroceryPage());
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

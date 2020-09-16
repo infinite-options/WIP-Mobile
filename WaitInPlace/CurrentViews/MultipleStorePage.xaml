@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-    
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -10,8 +9,8 @@
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False">
 
-        
-        <StackLayout BackgroundColor="#E6E6E6">
+
+    <StackLayout BackgroundColor="#E6E6E6">
         <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
         <!--<Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page5"/>-->
         <Label x:Name="PageName" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" Margin="20,0" FontAttributes="Bold"  />
@@ -27,159 +26,192 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.walkingIcon.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
-            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.busIcon.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center"/>
-            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.carIcon.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
+            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.WIP_Walk_Icon.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
+            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.WIP_Train_Icon.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" InputTransparent="True" HorizontalOptions="Center"/>
+            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.WIP_Car_Icon.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
         </Grid>
-
+        <Switch Toggled="Switch_Toggled"/>
         <StackLayout>
-            <ListView x:Name="StoreListView" MinimumHeightRequest="100" 
+
+                <ListView x:Name="StoreListView" MinimumHeightRequest="100" 
              SeparatorVisibility="None"
-             HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Button Text="18 San Fernando Ave,San Jose CA, 95192" ContentLayout="Right,10"  WidthRequest="300" Image="WIP_Queue_Black.png"  BackgroundColor="White" HorizontalOptions="Center" FontSize="Medium"/>
-                                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                                    <ImageButton Source="WIP_Queue_Black.png"/>
-                                    <Label Style="{StaticResource WithTextStyle}">
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label" 
-                                                          Binding="{Binding address}" Value="true">
-                                                <Setter Property="Style" Value="{StaticResource NoLabelStyle}" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                </StackLayout>
-                                <!--  <telerikInput:RadButton  x:Name="btn3" Text="18 San Fernando Ave,San Jose CA, 95192"  ContentLayout="Top,0" HeightRequest="90" WidthRequest="300" BackgroundColor="Blue" Image="WIP_Queue_Black.png"  HorizontalOptions="CenterAndExpand"  Clicked="btn3_Clicked"/>
--->
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+             HasUnevenRows="True" BackgroundColor="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Tapped="ViewCell_Tapped">
+                                <ViewCell.View>
+                                    
+                                    <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-            <StackLayout BackgroundColor="White" Margin="40,20">
-                <Grid BackgroundColor="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.3*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="address11" Text="18 San Fernando Ave,San Jose CA, 95192"  Grid.Row="0" Grid.Column="0" TextColor="Black" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="distance1" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                    <StackLayout Style="{x:DynamicResource ThemeColor}" Grid.Column="0" BackgroundColor="#0071BC" Margin="20,5,20,5">
+                                        
+                                        <Label Text="{Binding street}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="White" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                                             VerticalOptions="End" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0"/>
+                                         <Grid BackgroundColor="Transparent" Margin="0,0,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0.3*" />
+                                                <ColumnDefinition Width="0.3*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding Distance}" FontSize="Small" TextColor="White" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="10,0" />
+                                            <Image Source="WIP_Queue_Black.png" Grid.Row="0" Grid.Column="1"/>
+                                            <Label  Text="{Binding queue_size}" FontSize="Small"  TextColor="White" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                              </Grid>
 
-                </Grid>
-                <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
+                                        <Grid VerticalOptions="Start" BackgroundColor="white" Margin="0,0">
+                                            
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0.3*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="Approximate Wait time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
+                                            <Label Text="{Binding wait_time}" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                            <Label Text="My travel time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
+                                            <Label TextColor="Black" Text="11" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                            <Label Text="Approximate entry time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
+                                            <Label TextColor="Black" Text="00:00:00" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                        </Grid>
+                                        
+                                    </StackLayout>
+                                    </Grid>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+          <!--  <ScrollView>
+                <StackLayout>
+                    <StackLayout BackgroundColor="White" Margin="40,20">
 
-                    <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                </Grid>
-                <Grid VerticalOptions="Start">
-                    <Label x:Name="people1" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="waitTime1" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="travel1" TextColor="Black" Text="-- min" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        <Grid BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="address11" Text="18 San Fernando Ave,San Jose CA, 95192"  Grid.Row="0" Grid.Column="0" TextColor="Black" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="distance1" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                </Grid>
-                <Grid BackgroundColor="LightGray" Margin="6,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
-                    <TimePicker x:Name="timePicker1" Time="11:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
-                    <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
-                    <!--<Button Text="Join the line" Clicked="Join_Line_1" Grid.Row="0" Grid.Column="2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="2" BackgroundColor="Green" FontSize="Small" TextColor="White" Margin="2"/>-->
-                </Grid>
-                <Button Text="Join the line" Clicked="Join_Line_1" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0" HeightRequest="50"/>
-            </StackLayout>
+                        </Grid>
+                        <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
 
-            <StackLayout BackgroundColor="White" Margin="40,20">
-                <Grid BackgroundColor="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.3*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="address21" Text="273 Clark St, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="distance2" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        </Grid>
+                        <Grid VerticalOptions="Start">
+                            <Label x:Name="people1" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="waitTime1" Text="- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="travel1" TextColor="Black" Text="- min" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                </Grid>
-                <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
+                        </Grid>
+                        <Grid BackgroundColor="LightGray" Margin="6,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                            <TimePicker x:Name="timePicker1" Time="11:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
+                        </Grid>
+                        <Button Text="Join the line" Clicked="Join_Line_1" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0" HeightRequest="50"/>
+                    </StackLayout>
 
-                    <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                </Grid>
-                <Grid VerticalOptions="Start">
-                    <Label x:Name="people2" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="waitTime2" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="travel2" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                    <StackLayout BackgroundColor="White" Margin="40,20">
+                        <Grid BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="address21" Text="273 Clark St, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="distance2" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                </Grid>
-                <Grid BackgroundColor="LightGray" Margin="6,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
-                    <TimePicker x:Name="timePicker2" Time="12:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
-                    <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
-                </Grid>
-                <Button Text="Join the line" Clicked="Join_Line_2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
-            </StackLayout>
+                        </Grid>
+                        <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
+
+                            <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        </Grid>
+                        <Grid VerticalOptions="Start">
+                            <Label x:Name="people2" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="waitTime2" Text=" min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="travel2" Text=" min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+
+                        </Grid>
+                        <Grid BackgroundColor="LightGray" Margin="6,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                            <TimePicker x:Name="timePicker2" Time="12:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
+                        </Grid>
+                        <Button Text="Join the line" Clicked="Join_Line_2" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
+                    </StackLayout>
 
 
-            <StackLayout BackgroundColor="White" Margin="40,20">
-                <Grid BackgroundColor="White">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.3*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label x:Name="address31" Text="120 Park Ave, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="distance3" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                </Grid>
-                <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
+                    <StackLayout BackgroundColor="White" Margin="40,20">
+                        <Grid BackgroundColor="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="address31" Text="120 Park Ave, San Jose CA, 95192" TextColor="Black"  Grid.Row="0" Grid.Column="0" BackgroundColor="White" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="distance3" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        </Grid>
+                        <Grid VerticalOptions="Start" BackgroundColor="LightGray" Margin="6,0">
 
-                    <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                </Grid>
-                <Grid VerticalOptions="Start">
-                    <Label x:Name="people3" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="waitTime3" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
-                    <Label x:Name="travel3" Text="-- min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="People in line" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Wait time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label Text="Travel time" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        </Grid>
+                        <Grid VerticalOptions="Start">
+                            <Label x:Name="people3" Text="12" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="waitTime3" Text=" min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                            <Label x:Name="travel3" Text=" min" TextColor="Black" BackgroundColor="White" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
 
-                </Grid>
-                <Grid BackgroundColor="LightGray" Margin="6,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
-                    <TimePicker x:Name="timePicker3" Time="10:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
-                    <!--<Entry x:Name="Eta3" Placeholder="  00:00  AM" FontSize="Medium" BackgroundColor="LightGray" Margin="20,0" Grid.Row="0" Grid.Column="1"/>-->
-                </Grid>
-                <Button Text="Join the line" Clicked="Join_Line_3" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
-            </StackLayout>
+                        </Grid>
+                        <Grid BackgroundColor="LightGray" Margin="6,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Scheduled time:" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" TextColor="Black"/>
+                            <TimePicker x:Name="timePicker3" Time="10:00" Grid.Row="0" Grid.Column="1" Format="T" Margin="20,0" HorizontalOptions="Center"/>
+                        </Grid>
+                        <Button Text="Join the line" Clicked="Join_Line_3" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,0"/>
+                    </StackLayout>
+                </StackLayout>
+
+            </ScrollView>-->
         </StackLayout>
+        <Button Text="Join the line" Clicked="Join_Line" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,20"/>
     </StackLayout>
+        
 </ContentPage>

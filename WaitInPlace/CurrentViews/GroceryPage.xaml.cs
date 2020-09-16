@@ -18,6 +18,7 @@ namespace WaitInPlace
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GroceryPage : ContentPage
     {
+        ViewCell lastCell;
         public ObservableCollection<GroceryCat> GroceryStores = new ObservableCollection<GroceryCat>();
        // string[] catArray = { "", "", "", "", "", "" };
        // string[] idArray = { "", "", "", "", "", "" };
@@ -66,6 +67,17 @@ namespace WaitInPlace
             InitializeComponent();
             GetGroceryStores();
             catLabel.Text = Preferences.Get("venueCat", "");
+        }
+
+        private void ViewCell_Tapped(object sender, System.EventArgs e)
+        {
+            if (lastCell != null)
+                lastCell.View.BackgroundColor = Color.Transparent;
+            var viewCell = (ViewCell)sender;
+            if (viewCell.View != null)
+            {
+                viewCell.View.BackgroundColor = Color.LightGray;
+            }
         }
 
         private void To_Safeway_page(object sender, EventArgs e)

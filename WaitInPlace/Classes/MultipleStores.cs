@@ -10,18 +10,22 @@ namespace WaitInPlace
   public  class MultipleStores
     {
         public int venue_uid { get; set; } 
-      //  public string entry_time { get; set; } 
-     //   public string exit_time { get; set; } 
         public int venue_id { get; set; } 
         public string street { get; set; } 
         public string city { get; set; } 
         public string state { get; set; } 
         public string zip { get; set; } 
-        public string lattitude { get; set; } 
-        public string longitude { get; set; } 
+        public string latitude { get; set; } 
+        public string longitude { get; set; }
+
+        public int queue_size { get; set; }
         public string wait_time { get; set; }
 
         public string address { get; set; }
-        public int queue_size { get; set; } 
+        public string Distance { get; set; }
+        public string travel_time { get; internal set; }
+        public string walk_time { get; internal set; }
+        public string car_time { get; internal set; }
+        public string transit_time { get; internal set; }
     }
 }

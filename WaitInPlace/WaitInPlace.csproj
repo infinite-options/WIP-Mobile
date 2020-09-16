@@ -11,23 +11,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="busIcon.png" />
-    <None Remove="carIcon.png" />
     <None Remove="qrCode.png" />
-    <None Remove="walkingIcon.png" />
+    <None Remove="WIP_Car_Icon.png" />
     <None Remove="WIP_LOGO_Blue.png" />
     <None Remove="WIP_Queue_Black.png" />
     <None Remove="WIP_Queue_White.png" />
+    <None Remove="WIP_Train_Icon.png" />
+    <None Remove="WIP_Walk_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="busIcon.png" />
-    <EmbeddedResource Include="carIcon.png" />
     <EmbeddedResource Include="qrCode.png" />
-    <EmbeddedResource Include="walkingIcon.png" />
+    <EmbeddedResource Include="WIP_Car_Icon.png" />
     <EmbeddedResource Include="WIP_LOGO_Blue.png" />
     <EmbeddedResource Include="WIP_Queue_Black.png" />
     <EmbeddedResource Include="WIP_Queue_White.png" />
+    <EmbeddedResource Include="WIP_Train_Icon.png" />
+    <EmbeddedResource Include="WIP_Walk_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>

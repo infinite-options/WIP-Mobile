@@ -18,6 +18,7 @@ namespace WaitInPlace
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class VenuePage : ContentPage
     {
+        ViewCell lastCell;
         public ObservableCollection<VenueCategories> VenueCat = new ObservableCollection<VenueCategories>();
 
         ArrayList catArray = new ArrayList();
@@ -70,6 +71,17 @@ namespace WaitInPlace
                 GetVenueCat();
                 VenueCatListView.IsRefreshing = false;
             });
+        }
+
+        private void ViewCell_Tapped(object sender, System.EventArgs e)
+        {
+            if (lastCell != null)
+                lastCell.View.BackgroundColor = Color.Transparent;
+            var viewCell = (ViewCell)sender;
+            if (viewCell.View != null)
+            {
+                viewCell.View.BackgroundColor = Color.LightGray;
+            }
         }
 
         private void main_page2(object sender, EventArgs e)

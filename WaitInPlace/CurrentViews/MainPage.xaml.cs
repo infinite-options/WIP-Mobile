@@ -30,12 +30,12 @@ namespace WaitInPlace
             newUser.name = Preferences.Get("name", "");
             newUser.email = Preferences.Get("email", "");
             newUser.phone = Preferences.Get("phone", "");
-            newUser.current_lat = 0.0;
-            newUser.current_long = 0.0;
+            newUser.current_lat = "0.0";
+            newUser.current_long = "0.0";
             var newUserJSONString = JsonConvert.SerializeObject(newUser);
             var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
-            string venueId = Preferences.Get("venue_id", "");
+           // string venueId = Preferences.Get("venue_id", "");
             request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/add_customer");
             request.Method = HttpMethod.Post;
             request.Content = content;
@@ -134,9 +134,12 @@ namespace WaitInPlace
         {
 
             await getLoaction();
-
+            await getCustomerId();
+            if (customerId == "")
+            {
                 await setCustomerInfo();
                 await getCustomerId();
+            }
             await setLocationInfo();
 
         }

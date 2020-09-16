@@ -7,8 +7,8 @@
              x:Class="WaitInPlace.App">
     <Application.Resources>
     <Color x:Key="navBarColour">#CCCCCC</Color>
- <Style TargetType="NavigationPage">
-     <Setter Property="BarBackgroundColor" Value="{DynamicResource navBarColour}"/>
- </Style>
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{DynamicResource navBarColour}"/>
+        </Style>
     </Application.Resources>
 </Application>

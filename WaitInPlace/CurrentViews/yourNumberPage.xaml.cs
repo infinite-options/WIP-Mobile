@@ -20,13 +20,13 @@ namespace WaitInPlace
     public partial class yourNumberPage : ContentPage
     {
         string placeInLine;
-        int yourNum=0;
+        int yourNum=0,waitTime1=0;
         int origNum;
         int waitTimeOrig2;
         string placeInLine2;
         int reachTime;
         static Countdown countdown;
-        readonly int counter;
+      //  readonly int counter;
         string tokenId="";
 
         public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
@@ -68,7 +68,7 @@ namespace WaitInPlace
         }
 
 
-        public yourNumberPage(int waitTime, int lineNum,int venue_uid,string address, string pagename)
+        public yourNumberPage(string waitTime, string lineNum,int venue_uid,string address, string pagename)
         {
             InitializeComponent();
             initialization(venue_uid);
@@ -76,10 +76,11 @@ namespace WaitInPlace
             PageName.Text = pagename;
             address1.Text = address;
             Preferences.Set("add", address1.Text);
-            placeInLine = (lineNum + 1).ToString();
-            waitTimeOrig2 = waitTime;
+            placeInLine = (Int32.Parse(lineNum )+ 1).ToString();
+            Int32.TryParse((String)waitTime,out waitTime1);
+            waitTimeOrig2 = waitTime1;
 
-            reachTime = waitTime - 5;
+            reachTime = waitTime1- 5;
             placeInLine2 = placeInLine;
 
             origNum = int.Parse(placeInLine);

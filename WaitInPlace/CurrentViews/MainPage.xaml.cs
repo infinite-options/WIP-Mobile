@@ -30,9 +30,11 @@ namespace WaitInPlace
             newUser.name = Preferences.Get("name", "");
             newUser.email = Preferences.Get("email", "");
             newUser.phone = Preferences.Get("phone", "");
+            Console.WriteLine("the phone no. is " + newUser.phone);
             newUser.current_lat = "0.0";
             newUser.current_long = "0.0";
             var newUserJSONString = JsonConvert.SerializeObject(newUser);
+            Console.WriteLine("the object is " + newUserJSONString);
             var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
            // string venueId = Preferences.Get("venue_id", "");
@@ -134,12 +136,9 @@ namespace WaitInPlace
         {
 
             await getLoaction();
-            await getCustomerId();
-            if (customerId == "")
-            {
+           
                 await setCustomerInfo();
                 await getCustomerId();
-            }
             await setLocationInfo();
 
         }

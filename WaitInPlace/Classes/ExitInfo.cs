@@ -8,10 +8,10 @@ namespace WaitInPlace.Classes
 {
    public class ExitInfo
     {
-        public int user_id { get; set; }
-        public int venue_uid { get; set; }
+        public int usr_id { get; set; }
+        public int vnu_uid { get; set; }
         //public int wait_time { get; set; }
-        public string exit_time { get; set; }
+        public string ext_time { get; set; }
 
     }
 }

@@ -9,6 +9,8 @@ namespace WaitInPlace
 {
   public  class MultipleStores
     {
+        internal int j;
+
         public int venue_uid { get; set; } 
         public int venue_id { get; set; } 
         public string street { get; set; } 
@@ -27,5 +29,7 @@ namespace WaitInPlace
         public string walk_time { get; internal set; }
         public string car_time { get; internal set; }
         public string transit_time { get; internal set; }
+        public string color { get; internal set; }
+        public object image_line { get; internal set; }
     }
 }

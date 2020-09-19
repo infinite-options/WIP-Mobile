@@ -12,22 +12,22 @@
 
   <ItemGroup>
     <None Remove="qrCode.png" />
-    <None Remove="WIP_Car_Icon.png" />
+    <None Remove="WIP_Car_Icon_1.png" />
     <None Remove="WIP_LOGO_Blue.png" />
     <None Remove="WIP_Queue_Black.png" />
     <None Remove="WIP_Queue_White.png" />
-    <None Remove="WIP_Train_Icon.png" />
-    <None Remove="WIP_Walk_Icon.png" />
+    <None Remove="WIP_Train_Icon_1.png" />
+    <None Remove="WIP_Walk_Icon_1.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="qrCode.png" />
-    <EmbeddedResource Include="WIP_Car_Icon.png" />
+    <EmbeddedResource Include="WIP_Car_Icon_1.png" />
     <EmbeddedResource Include="WIP_LOGO_Blue.png" />
     <EmbeddedResource Include="WIP_Queue_Black.png" />
     <EmbeddedResource Include="WIP_Queue_White.png" />
-    <EmbeddedResource Include="WIP_Train_Icon.png" />
-    <EmbeddedResource Include="WIP_Walk_Icon.png" />
+    <EmbeddedResource Include="WIP_Train_Icon_1.png" />
+    <EmbeddedResource Include="WIP_Walk_Icon_1.png" />
   </ItemGroup>
 
   <ItemGroup>

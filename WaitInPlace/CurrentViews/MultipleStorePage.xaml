@@ -26,20 +26,20 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.WIP_Walk_Icon.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
-            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.WIP_Train_Icon.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" InputTransparent="True" HorizontalOptions="Center"/>
-            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.WIP_Car_Icon.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="60" HeightRequest="150" CornerRadius="50" HorizontalOptions="Center" />
+            <ImageButton x:Name="Walk" Source="{local:ImageResource WaitInPlace.WIP_Walk_Icon_1.png}" Grid.Row="0" Grid.Column="0" BackgroundColor="White" BorderColor="Black" Clicked="Walk_Selected"  WidthRequest="100" HeightRequest="200" CornerRadius="50" HorizontalOptions="Center" />
+            <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.WIP_Train_Icon_1.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="100" HeightRequest="200" CornerRadius="50" InputTransparent="True" HorizontalOptions="Center"/>
+            <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.WIP_Car_Icon_1.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="White" BorderColor="Black" Clicked="Car_Selected"  WidthRequest="100" HeightRequest="200" CornerRadius="50" HorizontalOptions="Center" />
         </Grid>
         <Switch Toggled="Switch_Toggled"/>
         <StackLayout>
 
-                <ListView x:Name="StoreListView" MinimumHeightRequest="100" 
+            <ListView x:Name="StoreListView"  ItemsSource="{Binding MultipleStores}" MinimumHeightRequest="100" 
              SeparatorVisibility="None"
              HasUnevenRows="True" BackgroundColor="Transparent">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell Tapped="ViewCell_Tapped">
-                                <ViewCell.View>
+                        <ViewCell Tapped="ViewCell_Tapped">
+                            <ViewCell.View>
                                     
                                     <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
                                         <Grid.RowDefinitions>
@@ -50,37 +50,51 @@
                                         </Grid.ColumnDefinitions>
 
                                     <StackLayout Style="{x:DynamicResource ThemeColor}" Grid.Column="0" BackgroundColor="#0071BC" Margin="20,5,20,5">
-                                        
-                                        <Label Text="{Binding street}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="White" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
-                                                             VerticalOptions="End" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0"/>
-                                         <Grid BackgroundColor="Transparent" Margin="0,0,0,0">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="0.3*" />
-                                                <ColumnDefinition Width="0.3*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Label Text="{Binding Distance}" FontSize="Small" TextColor="White" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="10,0" />
-                                            <Image Source="WIP_Queue_Black.png" Grid.Row="0" Grid.Column="1"/>
-                                            <Label  Text="{Binding queue_size}" FontSize="Small"  TextColor="White" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                              </Grid>
-
+                                        <Frame BorderColor="#0071BC" BackgroundColor="Transparent">
+                                            <StackLayout BackgroundColor="Transparent" Margin="0,-10">
+                                                <Label Text="{Binding street}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="{Binding color}" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                                             VerticalOptions="End" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"
+                                                                    NumberOfTapsRequired="1" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Grid BackgroundColor="Transparent" Margin="0,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="0.2*" />
+                                                        <ColumnDefinition Width="0.3*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding Distance}" FontSize="Small" TextColor="{Binding color}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="10,0">
+                                                      
+                                                    </Label>
+                                                    <Image  Source = "{Binding image_line}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer
+                                                                Tapped="OnTapGestureRecognizerTapped"
+                                                                    NumberOfTapsRequired="1" />
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+                                                    <Label  Text="{Binding queue_size}" FontSize="Small"  TextColor="{Binding color}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                </Grid>
+                                            </StackLayout>
+                                        </Frame>
                                         <Grid VerticalOptions="Start" BackgroundColor="white" Margin="0,0">
-                                            
+
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="0.3*" />
+                                                <ColumnDefinition Width="0.3*"/>
                                             </Grid.ColumnDefinitions>
                                             <Label Text="Approximate Wait time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
                                             <Label Text="{Binding wait_time}" TextColor="Black" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                             <Label Text="My travel time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
-                                            <Label TextColor="Black" Text="11" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                            <Label TextColor="Black" Text="{Binding travel_time}" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                             <Label Text="Approximate entry time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
                                             <Label TextColor="Black" Text="00:00:00" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                         </Grid>
-                                        
                                     </StackLayout>
                                     </Grid>
                                 </ViewCell.View>
@@ -211,7 +225,7 @@
 
             </ScrollView>-->
         </StackLayout>
-        <Button Text="Join the line" Clicked="Join_Line" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,20"/>
+        <Button x:Name="join_line" Text="Join the line" Clicked="Join_Line" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="#0071BC" FontSize="Small" TextColor="White" Margin="80,20"/>
     </StackLayout>
         
 </ContentPage>

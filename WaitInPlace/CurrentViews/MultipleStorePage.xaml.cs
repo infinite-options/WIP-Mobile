@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,18 +20,42 @@ namespace WaitInPlace
 
     public partial class MultipleStorePage : ContentPage
     {
-        int lineNum1 = 0, lineNum2 = 0, lineNum3 = 0, waitingTime1=0, waitingTime2=0, waitingTime3=0;
+       int waitingTime=0,waitingTime3=0,lineNum3=0;
         string  wait11 = "", wait12 = "", wait21 = "", wait22 = "", wait31 = "", wait32 = "";
         double lat1,lat2,lat3,long1,long2,long3,dist1,dist2,dist3;
         double dist;
+        int v_uid = 0;
         int tapCount =0,i=0;
-        string[] streetArray = { "", "", "" };
+        ArrayList addressArray = new ArrayList();
+        ArrayList uidArray = new ArrayList();
+        ArrayList lineArray = new ArrayList();
+        ArrayList waitArray = new ArrayList();
+        ArrayList latArray = new ArrayList();
+        ArrayList longArray = new ArrayList();
         ViewCell lastCell;
-        private void btn3_Clicked(object sender, EventArgs e)
+
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
-
+            Console.WriteLine("I am alive");
+            
+            string wait1="0:16:40",selectedTime ="";
+            MultipleStores multi = new MultipleStores();
+            var labelHandler = (Label)sender;
+            Console.WriteLine(labelHandler.Text);
+            for (int j = 0; j < i; j++)
+            {
+               //
+                Console.WriteLine(addressArray[j]);
+                if ((string)addressArray[j] ==(string) labelHandler.Text)
+                {
+                    
+                    Int32.TryParse((string)uidArray[j],out v_uid);
+                    Console.WriteLine(v_uid);
+                    //   setTicketInfo(v_uid);
+                    //  Navigation.PushAsync(new yourNumberPage((string)waitArray[j],(string)lineArray[j], v_uid, labelHandler.Text, PageName.Text));
+                }
+            }
         }
-
         DateTime eta = DateTime.Now;
 
 
@@ -53,38 +78,34 @@ namespace WaitInPlace
                 JObject mult_stores = JObject.Parse(userString);
                 this.MultStores.Clear();
 
-                string[] streetArray = { "", "", "" };
+              /*  string[] streetArray = { "", "", "" };
                 string[] cityArray = { "", "", "" };
                 string[] stateArray = { "", "", ""};
                 string[] zipArray = { "", "", ""};
                 double[] latArray = {0,0,0};
                 double[] longArray = { 0, 0, 0};
                 string[] lineArray = { "", "", ""};
-                string[] waitArray = { "", "", ""};
-                string[] uidArray = { "", "", ""};
+                string[] waitArray = { "", "", ""};*/
 
-                int i = 0;
                 foreach (var m in mult_stores["result"])
                 {
-                       streetArray[i] = m["street"].ToString();
-                    /*  cityArray[i] = m["city"].ToString();
-                      stateArray[i] = m["state"].ToString();
-                      zipArray[i] = m["zip"].ToString();
-                      latArray[i] = double.Parse(m["latitude"].ToString());
-                      longArray[i] = double.Parse(m["longitude"].ToString());
-                      lineArray[i] = m["queue_size"].ToString();
-                      waitArray[i] = m["wait_time"].ToString();
-                      uidArray[i] = m["venue_uid"].ToString();*/
+                    addressArray.Add( m["street"].ToString()+","+m["city"].ToString()+","+ m["state"].ToString()+ "," + m["zip"].ToString());
+                      latArray.Add( double.Parse(m["latitude"].ToString()));
+                      longArray.Add( double.Parse(m["longitude"].ToString()));
+                      lineArray.Add (m["queue_size"].ToString());
+                      waitArray.Add(Get_waitingtime(m["wait_time"].ToString()));
+                    uidArray.Add( m["venue_uid"].ToString());
                     i++;
                         this.MultStores.Add(new MultipleStores()
                         {
                             street = m["street"].ToString()+ "," + m["city"].ToString() + "," + m["state"].ToString() + "," + m["zip"].ToString(),
                             Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())),
                             queue_size = Int32.Parse(m["queue_size"].ToString()),
-                            wait_time = m["wait_time"].ToString(),
-                            travel_time ="10",
+                            wait_time = Get_waitingtime(m["wait_time"].ToString()),
+                            travel_time ="11",
+                            image_line= new Image { Source = "WIP_Queue_Black.png" },
                         });
-                    
+                    Console.WriteLine("print number");
                 }
                 StoreListView.ItemsSource = MultStores;
 
@@ -94,9 +115,7 @@ namespace WaitInPlace
                 people1.Text = lineArray[0];
                 people2.Text = lineArray[1];
                 people3.Text = lineArray[2];
-                */
-
-               
+                
                 lat1 =latArray[0];
                 lat2 = latArray[1];
                 lat3 = latArray[2];
@@ -106,52 +125,58 @@ namespace WaitInPlace
                 getDistance(lat1, lat2, lat3, long1, long2, long3);
                 Preferences.Set("venue_uid1", uidArray[0]);
                 Preferences.Set("venue_uid2", uidArray[1]);
-                Preferences.Set("venue_uid3", uidArray[2]);
+                Preferences.Set("venue_uid3", uidArray[2]);*/
 
-                //convert waitTime string to minutes
-                //1
-                /*int h1, h2, h3, m1, m2, m3;
-                wait11 = waitArray[0].Substring(0, 1);
-                wait12= waitArray[0].Substring(2, 2);
-                bool isParsable1 = Int32.TryParse(wait11, out h1);
-                bool isParsable2 = Int32.TryParse(wait12, out m1);
-                waitingTime1 = h1 * 60 + m1;
-                if (isParsable1 && isParsable2)
-                   waitTime1.Text=(waitingTime1).ToString();
-                else
-                    Console.WriteLine("Could not be parsed.");
-
-                //2
-                wait21 = waitArray[1].Substring(0, 1);
-                wait22 = waitArray[1].Substring(2, 2);
-                isParsable1 = Int32.TryParse(wait21, out h2);
-                isParsable2 = Int32.TryParse(wait22, out m2);
-                waitingTime2 = h2 * 60 + m2;
-                if (isParsable1 && isParsable2)
-                    waitTime2.Text = (waitingTime2).ToString();
-                else
-                    Console.WriteLine("Could not be parsed.");
-
-                //3
-                wait31 = waitArray[2].Substring(0, 1);
-                wait32 = waitArray[2].Substring(2, 2);
-                isParsable1 = Int32.TryParse(wait31, out h3);
-                isParsable2 = Int32.TryParse(wait32, out m3);
-                waitingTime3 = h3 * 60 + m3;
-                if (isParsable1 && isParsable2)
-                    waitTime3.Text = (waitingTime3).ToString();
-                else
-                    Console.WriteLine("Could not be parsed.");
-               
-              */
+            
             }
           
         }
 
-       
+        private string Get_waitingtime(string wait1)
+        {
+            int h, m;
+            bool isParsable1, isParsable2;
+           if(wait1 == "00:00:00" || wait1 == "")
+            {
+                return "0 mins";
+            }
+            
+            wait31 = wait1.Substring(0, 2).Trim(':');
+            wait32 = wait1.Substring(3, 3).Trim(':');
+          //  Console.WriteLine(wait31);
+          //  Console.WriteLine(wait32);
+
+            isParsable1 = Int32.TryParse(wait31, out h);
+            isParsable2 = Int32.TryParse(wait32, out m);
+            waitingTime = h * 60 + m;
+            if (isParsable1 && isParsable2)
+                return (waitingTime).ToString()+" mins";
+            else
+            {
+                Console.WriteLine("Could not be parsed.");
+                return "5 mins";
+            }
+        }
+
+        void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+        {
+            Console.WriteLine("here now"); 
+            tapCount++;
+            //var imageSender = (Image)sender;
+            var storeview = (Image)sender;
+            // watch the monkey go from color to black&white!
+            if (tapCount % 2 == 0)
+            {
+                storeview.Source = "local:ImageResource WaitInPlace.WIP_Queue_Black.png";
+            }
+            else
+            {
+                storeview.Source = "WIP_Queue_Black.png";
+            }
+        }
 
 
-        protected async Task setTicketInfo(int venue_uid, double wait_time)
+        protected async Task setTicketInfo(int venue_uid)
         {
             TicketInfo newTicket = new TicketInfo();
             newTicket.t_user_id = Preferences.Get("customer_id", 0);
@@ -250,6 +275,7 @@ namespace WaitInPlace
        
         private void ViewCell_Tapped(object sender, System.EventArgs e)
         {
+            
             if (lastCell != null)
                 lastCell.View.BackgroundColor = Color.Transparent;
             var viewCell = (ViewCell)sender;
@@ -295,7 +321,7 @@ namespace WaitInPlace
             Car.BackgroundColor = Color.White;
             Car.BorderColor = Color.Black;
             Preferences.Set("MOT", "transit");
-            double bus = 13.6;
+           // double bus = 13.6;
            // travel1.Text = GetTravelTime(dist1, bus);
           //  travel2.Text = GetTravelTime(dist2, bus);
             //travel3.Text = GetTravelTime(dist3, bus);
@@ -350,10 +376,22 @@ namespace WaitInPlace
           //  if (!double.TryParse(long3, out double lng)) return;
             Preferences.Set("latitude", lat3); 
             Preferences.Set("longitude", long3);
-            int v_uid3 = 13;// int.Parse(Preferences.Get("venue_uid3", ""));
+            int vuid = 0;
+            for (int j = 0; j < i; j++)
+            {
+                Int32.TryParse((string)uidArray[j], out vuid);
+                if (vuid == v_uid)
+                {
+
+                    setTicketInfo(v_uid);
+                    Navigation.PushAsync(new yourNumberPage((string)waitArray[j], (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
+                }
+            }
+            /*
+            int v_uid3 = int.Parse(Preferences.Get("venue_uid1", ""));
             double wait3 = waitingTime3;
-            setTicketInfo(v_uid3,wait3);
-            Navigation.PushAsync(new yourNumberPage(waitingTime3, lineNum3,v_uid3, "", PageName.Text));
+            setTicketInfo(v_uid3);
+            Navigation.PushAsync(new yourNumberPage(waitingTime3.ToString(), lineNum3.ToString(),v_uid3, "", PageName.Text));*/
         }
 
 

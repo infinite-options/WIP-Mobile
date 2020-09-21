@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-
+using Xamarin.Forms;
 
 namespace WaitInPlace
 {
@@ -29,7 +29,8 @@ namespace WaitInPlace
         public string walk_time { get; internal set; }
         public string car_time { get; internal set; }
         public string transit_time { get; internal set; }
-        public string color { get; internal set; }
+        public Color color { get; internal set; }
         public object image_line { get; internal set; }
+        public Color backcolor { get; internal set; }
     }
 }

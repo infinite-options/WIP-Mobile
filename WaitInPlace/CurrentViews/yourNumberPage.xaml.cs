@@ -26,7 +26,7 @@ namespace WaitInPlace
         string placeInLine2;
         int reachTime;
         static Countdown countdown;
-      //  readonly int counter;
+        readonly int counter;
         string tokenId="";
 
         public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
@@ -77,8 +77,11 @@ namespace WaitInPlace
             address1.Text = address;
             Preferences.Set("add", address1.Text);
             placeInLine = (Int32.Parse(lineNum )+ 1).ToString();
+            Console.WriteLine("printing the wait time" + waitTime);
             Int32.TryParse((String)waitTime,out waitTime1);
+            Console.WriteLine("printing the wait time" + waitTime1);
             waitTimeOrig2 = waitTime1;
+            Console.WriteLine("printing the waitinf orgin2"+waitTimeOrig2);
 
             reachTime = waitTime1- 5;
             placeInLine2 = placeInLine;

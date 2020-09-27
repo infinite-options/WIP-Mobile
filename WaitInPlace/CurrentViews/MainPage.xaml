@@ -16,11 +16,11 @@
             <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,45"/>-->
             <StackLayout BackgroundColor="#0071BC" Margin="20">
                 <Label  Text="     Name"  TextColor="White" FontSize="Medium" FontAttributes="Bold" />
-                <Entry x:Name="name" Keyboard="Text" Placeholder="James Bond" FontSize="Medium" Margin="20,0"/>
+                <Entry x:Name="name" Keyboard="Text" Placeholder="James Bond" FontSize="Medium" Margin="20"/>
                 <Label  Text="     Email"  TextColor="White" FontSize="Medium" FontAttributes="Bold" />
-                <Entry  x:Name="email" Keyboard="Email" Placeholder="jb007@email.com" FontSize="Medium" Margin="20,0"/>
+                <Entry  x:Name="email" Keyboard="Email" Placeholder="jb007@email.com" FontSize="Medium" Margin="20"/>
                 <Label  Text="     Phone Number"  TextColor="White" FontSize="Medium" FontAttributes="Bold"/>
-                <Entry  x:Name="phone" Keyboard="Telephone" Placeholder="XXX-XXX-XXXX" FontSize="Medium" Margin="20,0" />
+                <Entry  x:Name="phone" Keyboard="Telephone" Placeholder="XXX-XXX-XXXX" FontSize="Medium" Margin="20" />
             </StackLayout>
             <Button Text="WAIT IN PLACE" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,10" Clicked="To_Venue_Page" />
             <!-- <Button Text="Get Data" BackgroundColor="White" TextColor="Black" BorderColor="Black" Clicked="To_Data_Page" FontAttributes="Bold" HorizontalOptions="Fill"/>-->

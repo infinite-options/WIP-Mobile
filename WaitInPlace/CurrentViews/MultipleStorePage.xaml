@@ -93,7 +93,7 @@
                                             <Label Text="My travel time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
                                             <Label TextColor="Black" Text="{Binding travel_time}" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                             <Label Text="Approximate entry time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
-                                            <Label TextColor="Black" Text="00:00:00" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                            <Label TextColor="Black" Text="{Binding apx_entry}" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                         </Grid>
                                     </StackLayout>
                                     </Grid>

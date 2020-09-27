@@ -1,4 +1,4 @@
-﻿using GoogleApi.Entities.Maps.StaticMaps.Request;
+﻿ using GoogleApi.Entities.Maps.StaticMaps.Request;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -90,7 +90,7 @@ namespace WaitInPlace
             yourNum = Preferences.Get("token_id",0);
             //  place.Text = placeInLine;
             countdown = new Countdown();
-            countdown.StartUpdating(waitTimeOrig2);
+            countdown.StartUpdating(waitTimeOrig2);//*60);
             cdLabel.SetBinding(Label.TextProperty,
                     new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
@@ -121,7 +121,7 @@ namespace WaitInPlace
         {
             yourNum += 5;
             place.Text = yourNum.ToString();
-            countdown.StartUpdating(30);
+            countdown.StartUpdating(30);// *60);
 
             Navigation.PushAsync(new BarcodePage(waitTimeOrig2,yourNum,PageName.Text));
         }

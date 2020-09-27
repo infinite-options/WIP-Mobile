@@ -25,7 +25,9 @@ namespace WaitInPlace
         double lat1,lat2,lat3,long1,long2,long3,dist1,dist2,dist3;
         double dist;
         int v_uid = 0;
-        int tapCount =0,i=0;
+        int tapCount = 0, i = 0;
+        int travel=0,totalwait =0;
+        double waitdouble;
         ArrayList addressArray = new ArrayList();
         ArrayList uidArray = new ArrayList();
         ArrayList lineArray = new ArrayList();
@@ -47,13 +49,13 @@ namespace WaitInPlace
             join_line.BackgroundColor = Color.FromHex("#0071BC");
             for (int j = 0; j < i; j++)
             {
-               //Console.WriteLine(addressArray[j]);
                 if ((string)addressArray[j] == (string)labelHandler.Text)
                 {
                     multi.backcolor = Color.White;
                     multi.wait_time = "0";
                     Int32.TryParse((string)uidArray[j], out v_uid);
-                    Console.WriteLine(v_uid);
+                    travel = GetTravelTime(getDistance((double)latArray[j], (double)longArray[j]),speed);
+                   // Console.WriteLine("travel@click is " + travel.ToString() );
                  
                 }
                
@@ -84,56 +86,64 @@ namespace WaitInPlace
                 JObject mult_stores = JObject.Parse(userString);
                 this.MultStores.Clear();
 
-              /*  string[] streetArray = { "", "", "" };
-                string[] cityArray = { "", "", "" };
-                string[] stateArray = { "", "", ""};
-                string[] zipArray = { "", "", ""};
-                double[] latArray = {0,0,0};
-                double[] longArray = { 0, 0, 0};
-                string[] lineArray = { "", "", ""};
-                string[] waitArray = { "", "", ""};*/
+                DateTime now = DateTime.Now.ToLocalTime();
+                totalwait = (int)( waitdouble + GetTravelTime(dist, speed));
+               // DateTime time = now.TimeOfDay;
+
+                /*  string[] streetArray = { "", "", "" };
+                  string[] cityArray = { "", "", "" };
+                  string[] stateArray = { "", "", ""};
+                  string[] zipArray = { "", "", ""};
+                  double[] latArray = {0,0,0};
+                  double[] longArray = { 0, 0, 0};
+                  string[] lineArray = { "", "", ""};
+                  string[] waitArray = { "", "", ""};*/
 
                 foreach (var m in mult_stores["result"])
                 {
                     
                     addressArray.Add( m["street"].ToString()+","+m["city"].ToString()+","+ m["state"].ToString()+ "," + m["zip"].ToString());
-                      latArray.Add( double.Parse(m["latitude"].ToString()));
-                      longArray.Add( double.Parse(m["longitude"].ToString()));
-                      lineArray.Add (m["queue_size"].ToString());
-                      waitArray.Add(Get_waitingtime(m["wait_time"].ToString()));
+                    latArray.Add( double.Parse(m["latitude"].ToString()));
+                    longArray.Add( double.Parse(m["longitude"].ToString()));
+                    lineArray.Add (m["queue_size"].ToString());
+                    waitArray.Add(Get_waitingtime(m["wait_time"].ToString()));
                     uidArray.Add( m["venue_uid"].ToString());
+                    Double.TryParse(Get_waitingtime(m["wait_time"].ToString()), out waitdouble);
                     i++;
                     if (v_uid != Int32.Parse(m["venue_uid"].ToString()))
                     {
 
-                        var image = new Image { Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" };
+                       // var image = new Image { Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" };
                         this.MultStores.Add(new MultipleStores()
                         {
                             street = m["street"].ToString() + "," + m["city"].ToString() + "," + m["state"].ToString() + "," + m["zip"].ToString(),
-                            Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())),
+                            Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())).ToString() + " mi from my location",
                             queue_size = Int32.Parse(m["queue_size"].ToString()),
                             wait_time = Get_waitingtime(m["wait_time"].ToString()) + " min",
-                            travel_time = GetTravelTime(dist, speed).ToString(),
+                            travel_time = GetTravelTime(dist, speed).ToString() + " min",
                             color = Color.Black,
                             backcolor = Color.FromHex("#CCCCCC"),
                             image_line = new Image { Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" },
-                        }) ;
-                       
-                    }
 
+                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9,9),
+                        }) ;
+                        Console.WriteLine(now);
+                    }
+                    
                     else
                     {
-                        var image = new Image { Source = "WIP_Queue_White.png" };
+                        //var image = new Image { Source = "WIP_Queue_White.png" };
                         this.MultStores.Add(new MultipleStores()
                         {
                             street = m["street"].ToString() + "," + m["city"].ToString() + "," + m["state"].ToString() + "," + m["zip"].ToString(),
-                            Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())),
+                            Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())).ToString()+ " mi from my location",
                             queue_size = Int32.Parse(m["queue_size"].ToString()),
                             wait_time = Get_waitingtime(m["wait_time"].ToString()) + " min",
-                            travel_time = GetTravelTime(dist, speed).ToString(),
+                            travel_time = GetTravelTime(dist, speed).ToString() + " min",
                             color = Color.White,
                             backcolor = Color.FromHex("#0071BC"),
                             image_line = new Image { Source = "local:ImageResource WaitInPlace.WIP_Queue_White.png" },
+                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9,9)
                         });
 
                     }
@@ -161,11 +171,6 @@ namespace WaitInPlace
             
             }
           
-        }
-
-        void set_traveltime()
-        { 
-         
         }
 
         private string Get_waitingtime(string wait1)
@@ -214,6 +219,7 @@ namespace WaitInPlace
 
         protected async Task setTicketInfo(int venue_uid)
         {
+            double comm_time = 0;
             TicketInfo newTicket = new TicketInfo();
             newTicket.t_user_id = Preferences.Get("customer_id", 0);
             newTicket.t_uid = venue_uid;
@@ -222,9 +228,9 @@ namespace WaitInPlace
             DateTime now = DateTime.Now.ToLocalTime();
             string currentTime = (string.Format("{0}", now));
             Console.WriteLine("The current time is {0}", now);
-            newTicket.commute_time = "00:15:32" ;// currentTime.Substring(9, 9);
-           // newTicket.t_scheduled_time = selected_time.ToString();
-            //Console.WriteLine("the uid1 is :" + venue_uid);
+            newTicket.commute_time = TimeSpan.FromMinutes(travel).ToString();
+            // newTicket.t_scheduled_time = selected_time.ToString();
+            Console.WriteLine("the comm is :" + newTicket.commute_time);
             var newTicketJSONString = JsonConvert.SerializeObject(newTicket);
             var content = new StringContent(newTicketJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
@@ -235,17 +241,19 @@ namespace WaitInPlace
             HttpResponseMessage response = await client.SendAsync(request);
         }
 
-        string GetTravelTime(double dist,double speed)
+        int GetTravelTime(double dist,double speed)
         {
+            Console.WriteLine("dist is " + dist.ToString());
+            Console.WriteLine("speed is " + speed.ToString());
             int traveltimeh=0;
             double traveltime=0.0;
-            string travel="";
+            int travel=0;
 
             traveltime = Math.Round(dist / speed, 2);
             traveltimeh = (int)(traveltime);
             traveltime -= traveltimeh;
             traveltime *= 100 +( traveltimeh * 60);
-            travel = Math.Round(traveltime,0).ToString() + " min";
+            travel = (int)traveltime;
             Console.WriteLine("travel time is " + travel);
 
             return travel;
@@ -271,7 +279,7 @@ namespace WaitInPlace
                 StoreListView.IsRefreshing = false;
             });
         }
-        string getDistance(double lati, double longi)
+        double getDistance(double lati, double longi)
         {
 
             var custadd = new Location(Preferences.Get("lati", 0.0), Preferences.Get("long", 0.0));
@@ -281,7 +289,7 @@ namespace WaitInPlace
 
             dist = Math.Round(custadd.CalculateDistance(venadd1, DistanceUnits.Miles), 2);
             Console.WriteLine("distance " + dist);
-            return (dist.ToString() + " mi from my location");
+            return dist;
 
         }
         void getDistance(double lat1, double lat2, double lat3, double long1, double long2, double long3)
@@ -345,6 +353,7 @@ namespace WaitInPlace
             Preferences.Set("MOT", "walking");
             speed = 3.1;
             StoreListView.EndRefresh();
+
             // travel1.Text = GetTravelTime(dist1,walk);
             // travel2.Text = GetTravelTime(dist2, walk);
             //  travel3.Text = GetTravelTime(dist3, walk);
@@ -426,8 +435,9 @@ namespace WaitInPlace
                 if (vuid == v_uid)
                 {
 
+
                     setTicketInfo(v_uid);
-                    Navigation.PushAsync(new yourNumberPage(waitArray[j].ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
+                    Navigation.PushAsync(new yourNumberPage(totalwait.ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
                     break;
                 }
             }

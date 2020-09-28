@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WaitInPlace.Classes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -67,6 +68,31 @@ namespace WaitInPlace
             await getTokenId(venue_uid);
         }
 
+        protected async Task setGetOut(int venue_uid)
+        {
+            Console.WriteLine("hie from set exit");
+            //Console.WriteLine("starting of the get func!!");
+            ExitInfo newexit = new ExitInfo();
+            // TicketInfo newtkt = new TicketInfo();
+            newexit.usr_id = Preferences.Get("customer_id", 0);
+            newexit.vnu_uid = venue_uid;
+            //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
+            DateTime now = DateTime.Now.ToLocalTime();
+            string currentTime = (string.Format("{0}", now));
+            //string now = "12:02:32";
+            Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
+            newexit.ext_time = currentTime.Substring(9, 9);
+            //Console.WriteLine("the uid1 is :" + venue_uid);
+            var newExitJSONString = JsonConvert.SerializeObject(newexit);
+            var content = new StringContent(newExitJSONString, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage();
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/get_out");
+            request.Method = HttpMethod.Put;
+            request.Content = content;
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            Console.WriteLine("set ecitInfo ends");
+        }
 
         public yourNumberPage(string waitTime, string lineNum,int venue_uid,string address, string pagename)
         {
@@ -113,6 +139,7 @@ namespace WaitInPlace
 
         private void main_page5(object sender, EventArgs e)
         {
+            setGetOut(Preferences.Get("venue_uid", 0));
             Navigation.PushAsync(new MainPage());
 
         }

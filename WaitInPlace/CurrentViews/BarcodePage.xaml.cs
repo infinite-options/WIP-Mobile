@@ -23,6 +23,7 @@ namespace WaitInPlace
         int waitTimeOrig2;
         string yourNumStr;
         int origNum;
+        bool entered =false;
         static Countdown countdown;
 
         protected async Task setEntryTime(int venue_uid)
@@ -34,7 +35,7 @@ namespace WaitInPlace
             nexit.user_id = Preferences.Get("customer_id", 0);
             nexit.venue_uid = venue_uid;
             //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
-            DateTime now = DateTime.Now.ToLocalTime();
+            DateTime now = DateTime.Now.ToLocalTime().ToUniversalTime();
             string currentTime = (string.Format("{0}", now));
             //string now = "12:02:32";
             Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
@@ -60,7 +61,7 @@ namespace WaitInPlace
               newexit.usr_id = Preferences.Get("customer_id", 0);
             newexit.vnu_uid = venue_uid;
               //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
-              DateTime now = DateTime.Now.ToLocalTime();
+              DateTime now = DateTime.Now.ToLocalTime().ToUniversalTime();
               string currentTime = (string.Format("{0}", now));
               //string now = "12:02:32";
               Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
@@ -116,6 +117,10 @@ namespace WaitInPlace
         {
             int v_uid = Preferences.Get("v_uid", 1);
             Console.WriteLine("the given v__uid:" + v_uid);
+            if (entered == false)
+            {
+                setEntryTime(v_uid);
+            }
             setExitTime(v_uid);
             DisplayAlert("Exit Store", "You are exitting the store. Thanks for using WIP!.", "Continue");
             Navigation.PushAsync(new MainPage());
@@ -123,6 +128,7 @@ namespace WaitInPlace
 
         private void entry_Clicked(object sender, EventArgs e)
         {
+            entered = true;
             Console.WriteLine("Entered entry button!");
             int v_uid = Preferences.Get("v_uid", 1);
             Console.WriteLine("the given v__uid:" + v_uid);

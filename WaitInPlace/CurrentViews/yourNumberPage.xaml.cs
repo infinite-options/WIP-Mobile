@@ -119,11 +119,11 @@ namespace WaitInPlace
             yourNum = Preferences.Get("token_id",0);
             //  place.Text = placeInLine;
             countdown = new Countdown();
-            countdown.StartUpdating(waitTimeOrig2);//*60);
+            countdown.StartUpdating(waitTimeOrig2*60);
             cdLabel.SetBinding(Label.TextProperty,
                     new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
-            Device.StartTimer(TimeSpan.FromSeconds(waitTimeOrig2), () =>
+            Device.StartTimer(TimeSpan.FromMinutes(waitTimeOrig2), () =>
             {
                 /*if (origNum < yourNum)
                 {
@@ -155,7 +155,7 @@ namespace WaitInPlace
         {
             yourNum += 5;
             place.Text = yourNum.ToString();
-            countdown.StartUpdating(30);// *60);
+            countdown.StartUpdating(30*60);
 
             Navigation.PushAsync(new BarcodePage(waitTimeOrig2,yourNum,PageName.Text));
         }

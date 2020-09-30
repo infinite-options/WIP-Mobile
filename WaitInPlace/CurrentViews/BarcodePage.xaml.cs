@@ -78,12 +78,12 @@ namespace WaitInPlace
           }
 
         
-        public BarcodePage(int waitTimeOrig, int placeInLine,string pagename)
+        public BarcodePage(double waitTimeOrig, int placeInLine,string pagename)
         {
             InitializeComponent();
             yourNum = Preferences.Get("token_id", 0);
             origNum = placeInLine;
-            waitTimeOrig2 = waitTimeOrig;
+            waitTimeOrig2 = (int)waitTimeOrig;
             countdown = new Countdown();
             countdown.StartUpdating(300);
             cdLabel.SetBinding(Label.TextProperty,

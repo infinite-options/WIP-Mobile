@@ -26,7 +26,8 @@ namespace WaitInPlace
         double dist;
         int v_uid = 0;
         int tapCount = 0, i = 0;
-        int travel=0,totalwait =0;
+        double travel = 0;
+        double totalwait =0;
         double waitdouble;
         ArrayList addressArray = new ArrayList();
         ArrayList uidArray = new ArrayList();
@@ -54,7 +55,7 @@ namespace WaitInPlace
                     multi.backcolor = Color.White;
                     multi.wait_time = "0";
                     Int32.TryParse((string)uidArray[j], out v_uid);
-                    travel = GetTravelTime(getDistance((double)latArray[j], (double)longArray[j]),speed);
+                    travel = GetTravelTime(getDistance((double)latArray[j], (double)longArray[j]), speed);
                    // Console.WriteLine("travel@click is " + travel.ToString() );
                  
                 }
@@ -87,7 +88,8 @@ namespace WaitInPlace
                 this.MultStores.Clear();
 
                 DateTime now = DateTime.Now.ToLocalTime();
-                totalwait = (int)( waitdouble + GetTravelTime(dist, speed));
+                totalwait = waitdouble + (GetTravelTime(dist, speed))/60;
+                Console.WriteLine("the total wait is " + totalwait);
                // DateTime time = now.TimeOfDay;
 
                 /*  string[] streetArray = { "", "", "" };
@@ -241,13 +243,13 @@ namespace WaitInPlace
             HttpResponseMessage response = await client.SendAsync(request);
         }
 
-        int GetTravelTime(double dist,double speed)
+        double GetTravelTime(double dist,double speed)
         {
             Console.WriteLine("dist is " + dist.ToString());
             Console.WriteLine("speed is " + speed.ToString());
             int traveltimeh=0;
             double traveltime=0.0;
-            int travel=0;
+            double travel=0;
 
             traveltime = Math.Round(dist / speed, 2);
             traveltimeh = (int)(traveltime);
@@ -437,7 +439,7 @@ namespace WaitInPlace
 
 
                     setTicketInfo(v_uid);
-                    Navigation.PushAsync(new yourNumberPage(waitArray[j].ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
+                    Navigation.PushAsync(new yourNumberPage(totalwait.ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
                     break;
                 }
             }

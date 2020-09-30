@@ -21,11 +21,12 @@ namespace WaitInPlace
     public partial class yourNumberPage : ContentPage
     {
         string placeInLine;
-        int yourNum=0,waitTime1=0;
+        int yourNum = 0;
+        double waitTime1=0;
         int origNum;
-        int waitTimeOrig2;
+        double waitTimeOrig2;
         string placeInLine2;
-        int reachTime;
+        double reachTime;
         static Countdown countdown;
         readonly int counter;
         string tokenId="";
@@ -107,7 +108,7 @@ namespace WaitInPlace
             Preferences.Set("add", address1.Text);
             placeInLine = (Int32.Parse(lineNum )+ 1).ToString();
             Console.WriteLine("printing the wait time" + waitTime);
-            Int32.TryParse((String)waitTime,out waitTime1);
+            double.TryParse((String)waitTime,out waitTime1);
             Console.WriteLine("printing the wait time" + waitTime1);
             waitTimeOrig2 = waitTime1;
             Console.WriteLine("printing the waitinf orgin2"+waitTimeOrig2);

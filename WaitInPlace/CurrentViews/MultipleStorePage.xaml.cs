@@ -437,7 +437,7 @@ namespace WaitInPlace
 
 
                     setTicketInfo(v_uid);
-                    Navigation.PushAsync(new yourNumberPage(totalwait.ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
+                    Navigation.PushAsync(new yourNumberPage(waitArray[j].ToString(), (string)lineArray[j], v_uid, (string)addressArray[j], PageName.Text));
                     break;
                 }
             }

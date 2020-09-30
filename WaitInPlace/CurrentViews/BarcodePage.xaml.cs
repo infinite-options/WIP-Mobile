@@ -23,7 +23,6 @@ namespace WaitInPlace
         int waitTimeOrig2;
         string yourNumStr;
         int origNum;
-        bool entered =false;
         static Countdown countdown;
 
         protected async Task setEntryTime(int venue_uid)
@@ -117,10 +116,6 @@ namespace WaitInPlace
         {
             int v_uid = Preferences.Get("v_uid", 1);
             Console.WriteLine("the given v__uid:" + v_uid);
-            if (entered == false)
-            {
-                setEntryTime(v_uid);
-            }
             setExitTime(v_uid);
             DisplayAlert("Exit Store", "You are exitting the store. Thanks for using WIP!.", "Continue");
             Navigation.PushAsync(new MainPage());
@@ -128,7 +123,6 @@ namespace WaitInPlace
 
         private void entry_Clicked(object sender, EventArgs e)
         {
-            entered = true;
             Console.WriteLine("Entered entry button!");
             int v_uid = Preferences.Get("v_uid", 1);
             Console.WriteLine("the given v__uid:" + v_uid);

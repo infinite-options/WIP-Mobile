@@ -226,7 +226,7 @@ namespace WaitInPlace
             DateTime now = DateTime.Now.ToLocalTime();
             string currentTime = (string.Format("{0}", now));
             Console.WriteLine("The current time is {0}", now);
-            newTicket.commute_time = "00:00:00";//TimeSpan.FromMinutes(travel).ToString();
+            newTicket.commute_time = TimeSpan.FromMinutes(travel).ToString();
             // newTicket.t_scheduled_time = selected_time.ToString();
             Console.WriteLine("the comm is :" + newTicket.commute_time);
             var newTicketJSONString = JsonConvert.SerializeObject(newTicket);

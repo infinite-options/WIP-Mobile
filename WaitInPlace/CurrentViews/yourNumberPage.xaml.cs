@@ -23,7 +23,7 @@ namespace WaitInPlace
         string placeInLine;
         int yourNum = 0;
         double waitTime1=0;
-        int origNum;
+        int origNum,count=0;
         double waitTimeOrig2;
         string placeInLine2;
         double reachTime;
@@ -71,6 +71,11 @@ namespace WaitInPlace
             while (tokenId == "0")
             {
                 await getTokenId(venue_uid);
+                count++;
+                if (count > 10)
+                {
+                    break;
+                }
             }
             place.Text = tokenId;
         }

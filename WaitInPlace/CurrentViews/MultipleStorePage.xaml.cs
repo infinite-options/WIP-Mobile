@@ -51,7 +51,7 @@ namespace WaitInPlace
                     multi.backcolor = Color.White;
                     multi.wait_time = "0";
                     Int32.TryParse((string)uidArray[j], out v_uid);
-                    travel = GetTravelTime(getDistance((double)latArray[j], (double)longArray[j]), speed);
+                    travel = Math.Round(GetTravelTime(getDistance((double)latArray[j], (double)longArray[j]), speed),0);
                     // Console.WriteLine("travel@click is " + travel.ToString() );
 
                 }
@@ -118,7 +118,7 @@ namespace WaitInPlace
                             Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())).ToString() + " mi from my location",
                             queue_size = Int32.Parse(m["queue_size"].ToString()),
                             wait_time = Get_waitingtime(m["wait_time"].ToString()) + " min",
-                            travel_time = GetTravelTime(dist, speed).ToString() + " min",
+                            travel_time = Math.Round(GetTravelTime(dist, speed),0).ToString() + " min",
                             color = Color.Black,
                             backcolor = Color.FromHex("#CCCCCC"),
                             image_line = new Image { Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" },
@@ -137,7 +137,7 @@ namespace WaitInPlace
                             Distance = getDistance(double.Parse(m["latitude"].ToString()), double.Parse(m["longitude"].ToString())).ToString() + " mi from my location",
                             queue_size = Int32.Parse(m["queue_size"].ToString()),
                             wait_time = Get_waitingtime(m["wait_time"].ToString()) + " min",
-                            travel_time = GetTravelTime(dist, speed).ToString() + " min",
+                            travel_time = Math.Round(GetTravelTime(dist, speed),0).ToString() + " min",
                             color = Color.White,
                             backcolor = Color.FromHex("#0071BC"),
                             image_line = new Image { Source = "local:ImageResource WaitInPlace.WIP_Queue_White.png" },

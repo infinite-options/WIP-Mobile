@@ -84,7 +84,7 @@ namespace WaitInPlace
                 this.MultStores.Clear();
 
                 DateTime now = DateTime.Now.ToLocalTime();
-                totalwait = waitdouble + (GetTravelTime(dist, speed));
+                totalwait = waitdouble + Math.Round(GetTravelTime(dist, speed),0);
                 Console.WriteLine("the total wait is " + totalwait);
                 // DateTime time = now.TimeOfDay;
 
@@ -253,8 +253,12 @@ namespace WaitInPlace
             traveltime *= 100 + (traveltimeh * 60);
             travel = (int)traveltime;
             Console.WriteLine("travel time is " + travel);
-
-            return travel / 5;
+            if (travel > 40)
+            {
+                return travel / 8;
+            }
+            else
+                return travel/ 5;
         }
 
         double CarSpeed(double dist)

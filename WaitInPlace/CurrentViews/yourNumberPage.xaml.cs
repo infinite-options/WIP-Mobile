@@ -29,7 +29,7 @@ namespace WaitInPlace
         double reachTime;
         static Countdown countdown;
         readonly int counter;
-        string tokenId="";
+        string tokenId="0";
         bool click = false;
 
         public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
@@ -53,21 +53,26 @@ namespace WaitInPlace
                 var userString = await content.ReadAsStringAsync();
                 JObject get_Token_id = JObject.Parse(userString);
                 this.TokenId.Clear();
-                tokenId = "1";
-
-                foreach (var m in get_Token_id["result"])
-                {
-                    tokenId = m["token_number"].ToString();
-                }
-                Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
-                Preferences.Set("token_id", int.Parse(tokenId));
+                tokenId = "0";
+                
+                    foreach (var m in get_Token_id["result"])
+                    {
+                        tokenId = m["token_number"].ToString();
+                    }
+                    Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
+                    Preferences.Set("token_id", int.Parse(tokenId));
+                
             }
-            place.Text = tokenId;
         }
 
         async void initialization(int venue_uid)
         {
-            await getTokenId(venue_uid);
+
+            while (tokenId == "0")
+            {
+                await getTokenId(venue_uid);
+            }
+            place.Text = tokenId;
         }
 
         protected async Task setGetOut(int venue_uid)

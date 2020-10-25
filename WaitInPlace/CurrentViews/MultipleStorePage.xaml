@@ -9,7 +9,6 @@
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False">
 
-
     <StackLayout BackgroundColor="#E6E6E6">
         <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
         <!--<Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page5"/>-->
@@ -30,30 +29,44 @@
             <ImageButton x:Name="Bus" Source="{local:ImageResource WaitInPlace.WIP_Train_Icon_1.png}" Grid.Row="0" Grid.Column="1" BackgroundColor="White"  BorderColor="Black" Clicked="Bus_Selected"  WidthRequest="100" HeightRequest="200" CornerRadius="50" HorizontalOptions="Center"/>
             <ImageButton x:Name="Car" Source="{local:ImageResource WaitInPlace.WIP_Car_Icon_1.png}" Grid.Row="0" Grid.Column="2" BackgroundColor="#0071BC" BorderColor="#0071BC" Clicked="Car_Selected"  WidthRequest="100" HeightRequest="200" CornerRadius="50" HorizontalOptions="Center" />
         </Grid>
-        <Switch Toggled="Switch_Toggled"/>
+        <Grid x:Name="schedule" IsVisible="false" HeightRequest="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.25*"/>
+                <ColumnDefinition Width="0.25*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="schduled_label" Text=" select schedule time" Grid.Row="0" Grid.Column="0" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Black" BackgroundColor="Transparent"/>
+            <TimePicker x:Name="selected_time" Grid.Row="0" Grid.Column="0" IsVisible=" false" Opacity="50" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" PropertyChanging="selected_time_PropertyChanging" VerticalOptions="Center"  />
+            <Switch x:Name="switch" Toggled="Switch_Toggled" Grid.Row="0" Grid.Column=" 1" HorizontalOptions="Start" VerticalOptions="Center" />
+        </Grid>
         <StackLayout>
 
             <ListView x:Name="StoreListView"  ItemsSource="{Binding MultipleStores}" MinimumHeightRequest="100" 
              SeparatorVisibility="None"
              HasUnevenRows="True" BackgroundColor="Transparent">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
                         <ViewCell Tapped="ViewCell_Tapped">
                             <ViewCell.View>
-                                    
-                                    <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
+                                <Grid BackgroundColor="Transparent" Margin="0,0,0,1" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
                                     <StackLayout Style="{x:DynamicResource ThemeColor}" Grid.Column="0" BackgroundColor="{Binding backcolor}" Margin="20,5,20,5">
-                                        <Frame BorderColor="#0071BC" BackgroundColor="Transparent">
+                                        <Frame   BorderColor="Purple" BackgroundColor="Transparent">
                                             <StackLayout BackgroundColor="Transparent" Margin="0,-10">
-                                                <Label Text="{Binding street}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="{Binding color}" HorizontalOptions="Start" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
-                                                             VerticalOptions="End" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0">
+                                                <Label Text="{Binding street}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="{Binding color}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                                             VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"
+                                                                    NumberOfTapsRequired="1" />
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label Text="{Binding city}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" TextColor="{Binding color}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                                             VerticalOptions="Center" FontSize="Medium" FontAttributes="Bold" Margin="6,0,0,0">
                                                     <Label.GestureRecognizers>
                                                         <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"
                                                                     NumberOfTapsRequired="1" />
@@ -68,16 +81,8 @@
                                                         <ColumnDefinition Width="0.2*" />
                                                         <ColumnDefinition Width="0.3*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Label Text="{Binding Distance}" FontSize="Small" TextColor="{Binding color}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="10,0">
-                                                      
-                                                    </Label>
-                                                    <Image  Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End">
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer
-                                                                Tapped="OnTapGestureRecognizerTapped"
-                                                                    NumberOfTapsRequired="1" />
-                                                        </Image.GestureRecognizers>
-                                                    </Image>
+                                                    <Label Text="{Binding Distance}" FontSize="Small" TextColor="{Binding color}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="10,0"/>
+                                                    <Image  Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" Grid.Row="0" Grid.Column="1" HorizontalOptions="End"/>
                                                     <Label  Text="{Binding queue_size}" FontSize="Small"  TextColor="{Binding color}" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
                                                 </Grid>
                                             </StackLayout>
@@ -93,16 +98,16 @@
                                             <Label Text="My travel time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
                                             <Label TextColor="Black" Text="{Binding travel_time}" BackgroundColor="Transparent" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                                             <Label Text="Approximate entry time" Margin="10,0" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="White" FontSize="Medium" />
-                                            <Label TextColor="Black" Text="{Binding apx_entry}" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                                            <Label TextColor="Black" Text="{Binding apx_entry}" BackgroundColor="Transparent" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" FontSize="Medium"/>
                                         </Grid>
                                     </StackLayout>
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-          <!--  <ScrollView>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <!--  <ScrollView>
                 <StackLayout>
                     <StackLayout BackgroundColor="White" Margin="40,20">
 
@@ -225,7 +230,25 @@
 
             </ScrollView>-->
         </StackLayout>
-        <Button x:Name="join_line" Text="Join the line" IsEnabled="False" Clicked="Join_Line" HorizontalOptions="Fill" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="Transparent" FontSize="Small" TextColor="White" Margin="80,20"/>
+        <!--<StackLayout Orientation="Horizontal">
+            <Button x:Name="join_line2" Text="Join the line" IsEnabled="False" Clicked="Join_Line" HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="Transparent" FontSize="Small" TextColor="White" Margin="45,10,50,10"/>
+            <Button x:Name="join_line1" Text="Join the line" IsEnabled="False" Clicked="Join_Line" HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="Transparent" FontSize="Small" TextColor="White" Margin="50,10,40,10"/>
+        </StackLayout>-->
+        <Label Text="Select appropriate time to enter" TextColor="Black" FontSize="Medium" LineBreakMode="CharacterWrap" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" HeightRequest=" 100" BackgroundColor="Transparent" Margin="0,10,0,0"/>
+        <Grid HeightRequest="200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.25*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="join_line1" TextColor="White" Text="" Grid.Row="0" Grid.Column="0" IsEnabled="False" Clicked="Join_Line" HeightRequest="150" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="Transparent" FontSize="Medium"  Margin="20,5"/>
+            <Label Text="OR" TextColor="Black" FontSize="Medium" VerticalTextAlignment="Center" BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center" Grid.Row=" 0" Grid.Column=" 1"/>
+            <Button x:Name="join_line2" TextColor="White" Text="" Grid.Row="0" Grid.Column="2" IsEnabled="False" Clicked="join_line2_Clicked" HeightRequest="150"  HorizontalOptions="FillAndExpand" VerticalOptions="Fill" BorderColor="Black" CornerRadius="40" BorderWidth="1" BackgroundColor="Transparent" FontSize="Medium"  Margin="20,5"/>
+
+        </Grid>
     </StackLayout>
-        
+
 </ContentPage>

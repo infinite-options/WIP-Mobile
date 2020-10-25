@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -146,8 +147,43 @@ namespace WaitInPlace
         {
 
             InitializeComponent();
+           
         }
 
+        void Handle_emailChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            var Email = email.Text;
+
+            var emailPattern = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$";
+            if (Regex.IsMatch(Email, emailPattern))
+            {
+                ErrorLabel.IsVisible = false;
+                ErrorLabel.Text = "Email is valid";
+            }
+            else
+            {
+                ErrorLabel.IsVisible = true;
+                ErrorLabel.Text = "EMail is InValid";
+            }
+        }
+        void Handle_phoneChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            var Phone = phone.Text;
+
+            var phonePattern = @"\(?\d{3}\)?-? *\d{3}-? *-?\d{4}"; 
+            if (Regex.IsMatch(Phone, phonePattern))
+            {
+                wait_in_place.IsEnabled = true;
+                wait_in_place.BackgroundColor = Color.FromHex("#0071BC");
+                ErrorLabel.IsVisible = false;
+                ErrorLabel.Text = "phone number is valid";
+            }
+            else
+            {
+                ErrorLabel.IsVisible = true;
+                ErrorLabel.Text = "phone number is InValid";
+            }
+        }
         private void To_Venue_Page(object sender, EventArgs e)
         {
             Preferences.Set("name", name.Text);

@@ -1,4 +1,4 @@
-﻿using GoogleApi.Entities.Maps.StaticMaps.Request;
+﻿ using GoogleApi.Entities.Maps.StaticMaps.Request;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WaitInPlace.Classes;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,14 +21,16 @@ namespace WaitInPlace
     public partial class yourNumberPage : ContentPage
     {
         string placeInLine;
-        int yourNum=0,waitTime1=0;
-        int origNum;
-        int waitTimeOrig2;
+        int yourNum = 0;
+        double waitTime1=0;
+        int origNum,count=0;
+        double waitTimeOrig2;
         string placeInLine2;
-        int reachTime;
+        double reachTime;
         static Countdown countdown;
         readonly int counter;
-        string tokenId="";
+        string tokenId="0";
+        bool click = false;
 
         public ObservableCollection<TokenId> TokenId = new ObservableCollection<TokenId>();
         protected async Task getTokenId(int venue_id)
@@ -50,23 +53,59 @@ namespace WaitInPlace
                 var userString = await content.ReadAsStringAsync();
                 JObject get_Token_id = JObject.Parse(userString);
                 this.TokenId.Clear();
-                tokenId = "1";
-
-                foreach (var m in get_Token_id["result"])
-                {
-                    tokenId = m["token_number"].ToString();
-                }
-                Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
-                Preferences.Set("token_id", int.Parse(tokenId));
+                tokenId = "0";
+                
+                    foreach (var m in get_Token_id["result"])
+                    {
+                        tokenId = m["token_number"].ToString();
+                    }
+                    Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
+                    Preferences.Set("token_id", int.Parse(tokenId));
+                
             }
-            place.Text = tokenId;
         }
 
         async void initialization(int venue_uid)
         {
-            await getTokenId(venue_uid);
+
+            while (tokenId == "0")
+            {
+                await getTokenId(venue_uid);
+                count++;
+                if (count > 10)
+                {
+                    break;
+                }
+            }
+            place.Text = tokenId;
         }
 
+        protected async Task setGetOut(int venue_uid)
+        {
+            Console.WriteLine("hie from set exit");
+            //Console.WriteLine("starting of the get func!!");
+            ExitInfo nwexit = new ExitInfo();
+            // TicketInfo newtkt = new TicketInfo();
+            nwexit.usr_id = Preferences.Get("customer_id", 0);
+            nwexit.vnu_uid = venue_uid;
+            Console.WriteLine("the venue id and cus id is" + venue_uid.ToString() + nwexit.usr_id.ToString());
+            //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
+            DateTime now = DateTime.Now.ToLocalTime();
+            string currentTime = (string.Format("{0}", now));
+            //string now = "12:02:32";
+            Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
+            nwexit.ext_time = currentTime.Substring(9, 9);
+            //Console.WriteLine("the uid1 is :" + venue_uid);
+            var newExitJSONString = JsonConvert.SerializeObject(nwexit);
+            var content = new StringContent(newExitJSONString, Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage();
+            request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/get_out");
+            request.Method = HttpMethod.Put;
+            request.Content = content;
+            var client = new HttpClient();
+            HttpResponseMessage response = await client.SendAsync(request);
+            Console.WriteLine(response);
+        }
 
         public yourNumberPage(string waitTime, string lineNum,int venue_uid,string address, string pagename)
         {
@@ -75,10 +114,11 @@ namespace WaitInPlace
 
             PageName.Text = pagename;
             address1.Text = address;
+            Preferences.Set("venue_uid", venue_uid);
             Preferences.Set("add", address1.Text);
             placeInLine = (Int32.Parse(lineNum )+ 1).ToString();
             Console.WriteLine("printing the wait time" + waitTime);
-            Int32.TryParse((String)waitTime,out waitTime1);
+            double.TryParse((String)waitTime,out waitTime1);
             Console.WriteLine("printing the wait time" + waitTime1);
             waitTimeOrig2 = waitTime1;
             Console.WriteLine("printing the waitinf orgin2"+waitTimeOrig2);
@@ -90,11 +130,11 @@ namespace WaitInPlace
             yourNum = Preferences.Get("token_id",0);
             //  place.Text = placeInLine;
             countdown = new Countdown();
-            countdown.StartUpdating(waitTimeOrig2);
+            countdown.StartUpdating(waitTimeOrig2*60);
             cdLabel.SetBinding(Label.TextProperty,
                     new Binding("RemainTime", BindingMode.Default, new CountdownConverter()));
             cdLabel.BindingContext = countdown;
-            Device.StartTimer(TimeSpan.FromSeconds(waitTimeOrig2), () =>
+            Device.StartTimer(TimeSpan.FromMinutes(waitTimeOrig2), () =>
             {
                 /*if (origNum < yourNum)
                 {
@@ -102,7 +142,10 @@ namespace WaitInPlace
                     return true;
                 }*/
                 //countdown = new Countdown();
-                
+                if(click == true)
+                {
+                   return false;
+                }
 
                 readyButton.Text = "NOW READY";
                 readyButton.BackgroundColor = Color.FromHex("#0071BC");
@@ -113,6 +156,8 @@ namespace WaitInPlace
 
         private void main_page5(object sender, EventArgs e)
         {
+            click = true;
+            setGetOut(Preferences.Get("venue_uid", 0));
             Navigation.PushAsync(new MainPage());
 
         }
@@ -121,7 +166,7 @@ namespace WaitInPlace
         {
             yourNum += 5;
             place.Text = yourNum.ToString();
-            countdown.StartUpdating(30);
+            countdown.StartUpdating(30*60);
 
             Navigation.PushAsync(new BarcodePage(waitTimeOrig2,yourNum,PageName.Text));
         }

@@ -34,7 +34,7 @@ namespace WaitInPlace
             nexit.user_id = Preferences.Get("customer_id", 0);
             nexit.venue_uid = venue_uid;
             //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
-            DateTime now = DateTime.Now.ToLocalTime();
+            DateTime now = DateTime.Now.ToLocalTime().ToUniversalTime();
             string currentTime = (string.Format("{0}", now));
             //string now = "12:02:32";
             Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
@@ -60,7 +60,7 @@ namespace WaitInPlace
               newexit.usr_id = Preferences.Get("customer_id", 0);
             newexit.vnu_uid = venue_uid;
               //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
-              DateTime now = DateTime.Now.ToLocalTime();
+              DateTime now = DateTime.Now.ToLocalTime().ToUniversalTime();
               string currentTime = (string.Format("{0}", now));
               //string now = "12:02:32";
               Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
@@ -78,12 +78,12 @@ namespace WaitInPlace
           }
 
         
-        public BarcodePage(int waitTimeOrig, int placeInLine,string pagename)
+        public BarcodePage(double waitTimeOrig, int placeInLine,string pagename)
         {
             InitializeComponent();
             yourNum = Preferences.Get("token_id", 0);
             origNum = placeInLine;
-            waitTimeOrig2 = waitTimeOrig;
+            waitTimeOrig2 = (int)waitTimeOrig;
             countdown = new Countdown();
             countdown.StartUpdating(300);
             cdLabel.SetBinding(Label.TextProperty,

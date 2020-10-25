@@ -12,18 +12,19 @@
     <ScrollView>
         <StackLayout x:Name="main" BackgroundColor="#E6E6E6">
             <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,45"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
-
+            <Label x:Name="ErrorLabel" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Red" IsVisible="False"/>
             <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,45"/>-->
             <StackLayout BackgroundColor="#0071BC" Margin="20">
                 <Label  Text="     Name"  TextColor="White" FontSize="Medium" FontAttributes="Bold" />
-                <Entry x:Name="name" Keyboard="Text" Placeholder="James Bond" FontSize="Medium" Margin="20,0"/>
+                <Entry x:Name="name" IsTextPredictionEnabled="False" Keyboard="Text" Placeholder="James Bond" FontSize="Medium" Margin="20"/>
                 <Label  Text="     Email"  TextColor="White" FontSize="Medium" FontAttributes="Bold" />
-                <Entry  x:Name="email" Keyboard="Email" Placeholder="jb007@email.com" FontSize="Medium" Margin="20,0"/>
+                <Entry  x:Name="email" IsTextPredictionEnabled="False" Keyboard="Email" Placeholder="jb007@email.com" FontSize="Medium" Margin="20" TextChanged="Handle_emailChanged"/>
                 <Label  Text="     Phone Number"  TextColor="White" FontSize="Medium" FontAttributes="Bold"/>
-                <Entry  x:Name="phone" Keyboard="Telephone" Placeholder="XXX-XXX-XXXX" FontSize="Medium" Margin="20,0" />
+                <Entry  x:Name="phone" IsTextPredictionEnabled="False" Keyboard="Telephone" Placeholder="XXX-XXX-XXXX" FontSize="Medium" Margin="20" TextChanged="Handle_phoneChanged"/>
             </StackLayout>
-            <Button Text="WAIT IN PLACE" BackgroundColor="#0071BC" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,10" Clicked="To_Venue_Page" />
+            <Button x:Name="wait_in_place"  Text="WAIT IN PLACE" IsEnabled="True" BackgroundColor="Gray" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,10" Clicked="To_Venue_Page" />
             <!-- <Button Text="Get Data" BackgroundColor="White" TextColor="Black" BorderColor="Black" Clicked="To_Data_Page" FontAttributes="Bold" HorizontalOptions="Fill"/>-->
+            <Label Text="version-1.4.2" TextColor="Black" FontSize="Medium" VerticalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" Opacity=" 50" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

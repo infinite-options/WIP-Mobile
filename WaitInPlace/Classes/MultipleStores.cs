@@ -32,5 +32,6 @@ namespace WaitInPlace
         public Color color { get; internal set; }
         public object image_line { get; internal set; }
         public Color backcolor { get; internal set; }
+        public string apx_entry { get; internal set; }
     }
 }

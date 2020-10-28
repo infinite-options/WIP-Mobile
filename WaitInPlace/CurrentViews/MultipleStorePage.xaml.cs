@@ -63,9 +63,9 @@ namespace WaitInPlace
                     long3 = (double)longArray[j];
                     join_line1.Text =  (DateTime.Now.AddMinutes(travel+ (double)waitArray[j])).ToString().Substring(9, 10).TrimStart('0');
                     de_selected_time_min = Math.Round(travel + (double)waitArray[j], 0);
-                    de_selected_time_min2 = Math.Round(travel + (double)waitArray[j], 0)+60;
+                    de_selected_time_min2 = Math.Round(travel + (double)waitArray[j]+60, 0);
                     de_selected_time = TimeSpan.FromMinutes(de_selected_time_min);
-                    join_line2.Text = (DateTime.Now.AddMinutes(travel + (double)waitArray[j] + 60)).ToString().Substring(9, 9).TrimStart('0');
+                    join_line2.Text = (DateTime.Now.AddMinutes(travel + (double)waitArray[j] + 60)).ToString().Substring(9, 10).TrimStart('0');
                    select_time = DateTime.Now.TimeOfDay.Add(TimeSpan.FromMinutes(Math.Round(travel + (double)waitArray[j] + 60, 0)));
                 }
             }
@@ -126,7 +126,7 @@ namespace WaitInPlace
                             backcolor = Color.FromHex("#CCCCCC"),
                             image_line = new Image { Source = "{local:ImageResource WaitInPlace.WIP_Queue_Black.png}" },
 
-                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9,9).TrimStart('0'),
+                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9,10).TrimStart('0'),
                         });
                     }
 
@@ -143,7 +143,7 @@ namespace WaitInPlace
                             color = Color.White,
                             backcolor = Color.FromHex("#0071BC"),
                             image_line = new Image { Source = "local:ImageResource WaitInPlace.WIP_Queue_White.png" },
-                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9, 9).TrimStart('0'),
+                            apx_entry = now.AddMinutes(waitdouble + GetTravelTime(dist, speed)).ToString().Substring(9, 10).TrimStart('0'),
                         }) ;
 
                     }
@@ -294,8 +294,8 @@ namespace WaitInPlace
 
         private void join_line2_Clicked(object sender, EventArgs e)
         {
-            de_selected_time2 = DateTime.Now.TimeOfDay.Subtract(select_time).ToString().Substring(0, 7);
-            double.TryParse(de_selected_time2.ToString(), out de_selected_time_min2);
+           // de_selected_time2 = DateTime.Now.TimeOfDay.Subtract(select_time).ToString().Substring(0, 7);
+           // double.TryParse(de_selected_time2.ToString(), out de_selected_time_min2);
             Preferences.Set("latitude", lat3);
             Preferences.Set("longitude", long3);
             int vuid = 0;

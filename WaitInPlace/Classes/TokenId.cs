@@ -11,6 +11,5 @@ namespace WaitInPlace
 
         public int token_number { get; set; }
 
-
     }
 }

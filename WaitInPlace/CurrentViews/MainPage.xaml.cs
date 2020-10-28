@@ -17,11 +17,6 @@ using Xamarin.Forms.Xaml;
 
 namespace WaitInPlace
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
-    [DesignTimeVisible(false)]
-
-
     public partial class MainPage : ContentPage
     {
         string customerId = "";
@@ -31,14 +26,11 @@ namespace WaitInPlace
             newUser.name = Preferences.Get("name", "");
             newUser.email = Preferences.Get("email", "");
             newUser.phone = Preferences.Get("phone", "");
-            Console.WriteLine("the phone no. is " + newUser.phone);
             newUser.current_lat = "0.0";
             newUser.current_long = "0.0";
             var newUserJSONString = JsonConvert.SerializeObject(newUser);
-            Console.WriteLine("the object is " + newUserJSONString);
             var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
-           // string venueId = Preferences.Get("venue_id", "");
             request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/add_customer");
             request.Method = HttpMethod.Post;
             request.Content = content;
@@ -69,7 +61,6 @@ namespace WaitInPlace
                     customerId = m["customer_id"].ToString();
                 }
                 Preferences.Set("customer_id", int.Parse(customerId));
-                //Console.WriteLine("the customer id is:" + customerId);
             }
         }
 
@@ -79,7 +70,6 @@ namespace WaitInPlace
             newlocation.current_lat =  Preferences.Get("lati", 0.0);
             newlocation.current_long = Preferences.Get("long", 0.0);
             newlocation.customer_id = Preferences.Get("customer_id", 0);
-            Console.WriteLine("lati{0} and long{1} customer{2}", newlocation.current_lat, newlocation.current_long,newlocation.customer_id);
             var newUserJSONString = JsonConvert.SerializeObject(newlocation);
             var content = new StringContent(newUserJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
@@ -93,8 +83,6 @@ namespace WaitInPlace
 
         private async Task getLoaction()
         {
-            try
-            {
                 var locate = await Geolocation.GetLastKnownLocationAsync();
 
                 if (locate == null)
@@ -104,33 +92,11 @@ namespace WaitInPlace
                         DesiredAccuracy = GeolocationAccuracy.Medium,
                         Timeout = TimeSpan.FromSeconds(30)
                     });
-                    Console.WriteLine($"Latitude: {locate.Latitude}, Longitude: {locate.Longitude}, Altitude: {locate.Altitude}");
                 }
                 Preferences.Set("lati", locate.Latitude);
                 Preferences.Set("long", locate.Longitude);
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Handle not supported on device exception
-                Console.WriteLine(" Handle not supported on device exception");
-
-            }
-            catch (FeatureNotEnabledException fneEx)
-            {
-                // Handle not enabled on device exception
-                Console.WriteLine("Handle not enabled on device exception");
-
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-                Console.WriteLine("Handle permission exception");
-            }
-            catch (Exception ex)
-            {
-                // Unable to get location
-                Console.WriteLine("Unable to get location");
-            } 
+            
+           
         }
 
         private async Task initializingAsync()
@@ -191,11 +157,6 @@ namespace WaitInPlace
             Preferences.Set("phone", phone.Text);
             initializingAsync();
             Navigation.PushAsync(new VenuePage());
-        }
-
-        private void To_Data_Page(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new DataDisplayPage());
         }
     }
 }

@@ -10,7 +10,6 @@ namespace WaitInPlace.Classes
     {
         public int usr_id { get; set; }
         public int vnu_uid { get; set; }
-        //public int wait_time { get; set; }
         public string ext_time { get; set; }
 
     }

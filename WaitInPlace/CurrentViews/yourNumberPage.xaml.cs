@@ -28,7 +28,7 @@ namespace WaitInPlace
         string placeInLine2;
         double reachTime;
         static Countdown countdown;
-        readonly int counter;
+       // readonly int counter;
         string tokenId="0";
         bool click = false;
 
@@ -37,19 +37,15 @@ namespace WaitInPlace
         {
             var request = new HttpRequestMessage();
             int custId = Preferences.Get("customer_id", 0);
-            Console.WriteLine("CUSTOMER_ID IN FUNC IS: " + custId);
             int VenueUid = venue_id;
-            Console.WriteLine("v_uid IN PARSE FUNC IS: " + VenueUid);
             request.RequestUri = new Uri("https://61vdohhos4.execute-api.us-west-1.amazonaws.com/dev/api/v2/customer_token/" + custId + "/" + VenueUid);
             request.Method = HttpMethod.Get;
             var client = new HttpClient();
             HttpResponseMessage response = await client.SendAsync(request);
-            Console.WriteLine("its before if");
-
+       
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                Console.WriteLine("its after if");
-                HttpContent content = response.Content;
+               HttpContent content = response.Content;
                 var userString = await content.ReadAsStringAsync();
                 JObject get_Token_id = JObject.Parse(userString);
                 this.TokenId.Clear();
@@ -59,7 +55,6 @@ namespace WaitInPlace
                     {
                         tokenId = m["token_number"].ToString();
                     }
-                    Console.WriteLine("TOKEN IN PARSE FUNC IS: " + tokenId);
                     Preferences.Set("token_id", int.Parse(tokenId));
                 
             }
@@ -82,20 +77,12 @@ namespace WaitInPlace
 
         protected async Task setGetOut(int venue_uid)
         {
-            Console.WriteLine("hie from set exit");
-            //Console.WriteLine("starting of the get func!!");
             ExitInfo nwexit = new ExitInfo();
-            // TicketInfo newtkt = new TicketInfo();
             nwexit.usr_id = Preferences.Get("customer_id", 0);
             nwexit.vnu_uid = venue_uid;
-            Console.WriteLine("the venue id and cus id is" + venue_uid.ToString() + nwexit.usr_id.ToString());
-            //string now = DateTime.Now.TimeOfDay.ToString("h:mm:ss tt");
             DateTime now = DateTime.Now.ToLocalTime();
             string currentTime = (string.Format("{0}", now));
-            //string now = "12:02:32";
-            Console.WriteLine("The current time is at exit butto " + now.TimeOfDay);
-            nwexit.ext_time = currentTime.Substring(9, 9);
-            //Console.WriteLine("the uid1 is :" + venue_uid);
+             nwexit.ext_time = currentTime.Substring(9, 9);
             var newExitJSONString = JsonConvert.SerializeObject(nwexit);
             var content = new StringContent(newExitJSONString, Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage();
@@ -104,7 +91,6 @@ namespace WaitInPlace
             request.Content = content;
             var client = new HttpClient();
             HttpResponseMessage response = await client.SendAsync(request);
-            Console.WriteLine(response);
         }
 
         public yourNumberPage(string waitTime, string lineNum,int venue_uid,string address, string pagename)
@@ -117,18 +103,14 @@ namespace WaitInPlace
             Preferences.Set("venue_uid", venue_uid);
             Preferences.Set("add", address1.Text);
             placeInLine = (Int32.Parse(lineNum )+ 1).ToString();
-            Console.WriteLine("printing the wait time" + waitTime);
             double.TryParse((String)waitTime,out waitTime1);
-            Console.WriteLine("printing the wait time" + waitTime1);
             waitTimeOrig2 = waitTime1;
-            Console.WriteLine("printing the waitinf orgin2"+waitTimeOrig2);
-
+       
             reachTime = waitTime1- 5;
             placeInLine2 = placeInLine;
 
             origNum = int.Parse(placeInLine);
             yourNum = Preferences.Get("token_id",0);
-            //  place.Text = placeInLine;
             countdown = new Countdown();
             countdown.StartUpdating(waitTimeOrig2*60);
             cdLabel.SetBinding(Label.TextProperty,
@@ -136,12 +118,6 @@ namespace WaitInPlace
             cdLabel.BindingContext = countdown;
             Device.StartTimer(TimeSpan.FromMinutes(waitTimeOrig2), () =>
             {
-                /*if (origNum < yourNum)
-                {
-                    origNum += 5;
-                    return true;
-                }*/
-                //countdown = new Countdown();
                 if(click == true)
                 {
                    return false;

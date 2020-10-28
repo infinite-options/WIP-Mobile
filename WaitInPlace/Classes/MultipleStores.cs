@@ -10,7 +10,6 @@ namespace WaitInPlace
   public  class MultipleStores
     {
         internal int j;
-
         public int venue_uid { get; set; } 
         public int venue_id { get; set; } 
         public string street { get; set; } 

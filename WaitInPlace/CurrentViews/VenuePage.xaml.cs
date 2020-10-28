@@ -38,10 +38,6 @@ namespace WaitInPlace
                 JObject venue_cat = JObject.Parse(userString);
                 this.VenueCat.Clear();
 
-                //Console.WriteLine("user_info['result']: " + venue_cat["result"]);
-                //Console.WriteLine("user_info: " + venue_cat);
-
-               // string[] catArray = { "", "", "", "", "", "" };
                 int i = 0;
                 foreach (var m in venue_cat["result"])
                 {
@@ -53,13 +49,7 @@ namespace WaitInPlace
                     });;
                     i++;
                 }
-              /*  cat1.Text = (string)catArray[0];
-                cat2.Text = (string)catArray[1];
-                cat3.Text = (string)catArray[2];
-                cat4.Text = (string)catArray[3];
-                cat5.Text = (string)catArray[4];
-                cat6.Text = catArray[5];*/
-                VenueCatListView.ItemsSource = VenueCat;
+               VenueCatListView.ItemsSource = VenueCat;
             }
         }
         public VenuePage()
@@ -86,19 +76,12 @@ namespace WaitInPlace
 
         private void main_page2(object sender, EventArgs e)
         {
-          //  Preferences.Set("venueCat", cat1.Text);
             Navigation.PushAsync(new MainPage());
         }
 
         async void display_category(Object sender, EventArgs e) 
         {
             var buttonClickHandler = (Button)sender;
-          /*  Console.WriteLine("the text of the button"+ buttonClickHandler.Text);
-
-            StackLayout ParentStackLayout = (StackLayout)buttonClickHandler.Parent;
-            Button newcat1 = (Button)ParentStackLayout.Children[0];
-            string name = newcat1.Text;
-            Console.WriteLine("the 1st name is"+name);*/
             Preferences.Set("venueCat", buttonClickHandler.Text);
             Navigation.PushAsync(new GroceryPage());
         }

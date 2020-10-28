@@ -9,14 +9,11 @@
     
     <ContentPage.Content>
         <StackLayout BackgroundColor="#E6E6E6">
-           <!-- <Button Text="WAIT IN PLACE" BackgroundColor="Black" TextColor="White" HorizontalOptions="Fill" FontSize="Title" FontAttributes="Bold"  Margin="75,20" Clicked="main_page2"/>-->
             <ImageButton x:Name="WIP" Source="{local:ImageResource WaitInPlace.WIP_LOGO_Blue.png}" HorizontalOptions="Fill"   Margin="75,20"  WidthRequest="1" HeightRequest="60" BackgroundColor="Transparent"/>
 
             <Label Text="VENUE CATEGORIES" TextColor="Black" FontSize="Title"  HorizontalTextAlignment="Center" FontAttributes="Bold"  Margin="20,0"/>
             <ScrollView>
                 <StackLayout>
-
-
                     <ListView x:Name="VenueCatListView" MinimumHeightRequest="100" 
              SeparatorVisibility="None"
              HasUnevenRows="True" >

@@ -20,8 +20,6 @@ namespace WaitInPlace
     {
         ViewCell lastCell;
         public ObservableCollection<GroceryCat> GroceryStores = new ObservableCollection<GroceryCat>();
-       // string[] catArray = { "", "", "", "", "", "" };
-       // string[] idArray = { "", "", "", "", "", "" };
         ArrayList catArray = new ArrayList();
         ArrayList idArray = new ArrayList();
 
@@ -42,16 +40,12 @@ namespace WaitInPlace
                 JObject grocery_stores = JObject.Parse(userString);
                 this.GroceryStores.Clear();
 
-                //Console.WriteLine("user_info['result']: " + grocery_stores["result"]);
-                //Console.WriteLine("user_info: " + grocery_stores);
-
+         
 
                 foreach (var m in grocery_stores["result"])
                 {
                     catArray.Add(m["venue_name"].ToString());
                     idArray.Add(m["venue_id"].ToString());
-                    //  catArray[i] = m["venue_name"].ToString();
-                    // idArray[i] = m["venue_id"].ToString();
                     this.GroceryStores.Add(new GroceryCat()
                     {
                         venue_name = m["venue_name"].ToString(),
@@ -98,7 +92,6 @@ namespace WaitInPlace
 
                      venue_id = (string)idArray[j];
                      Preferences.Set("venue_id", venue_id);
-                    // Console.WriteLine("the venue id is " + venue_id);
                      Navigation.PushAsync(new MultipleStorePage(buttonClickHandler.Text));
                      break;
                  }
@@ -107,48 +100,6 @@ namespace WaitInPlace
             }
 
         }
-
-        /* private void To_TraderJ_page(object sender, EventArgs e)
-{
-    if (Store2.Text != "")
-    {
-        Preferences.Set("venue_id", idArray[1]);
-        Navigation.PushAsync(new MultipleStorePage(Store2.Text));
-    }
-}
-private void To_Sprout_page(object sender, EventArgs e)
-{
-    if (Store3.Text != "")
-    {
-        Preferences.Set("venue_id", idArray[2]);
-        Navigation.PushAsync(new MultipleStorePage(Store3.Text));
-    }
-}
-private void To_WholeFoods_page(object sender, EventArgs e)
-{
-    if (Store4.Text != "")
-    {
-        Preferences.Set("venue_id", idArray[3]);
-        Navigation.PushAsync(new MultipleStorePage(Store4.Text));
-    }
-}
-private void To_Lucky_page(object sender, EventArgs e)
-{
-    if (Store5.Text != "")
-    {
-        Preferences.Set("venue_id", idArray[4]);
-        Navigation.PushAsync(new MultipleStorePage(Store5.Text));
-    }
-}
-private void To_NobHill_page(object sender, EventArgs e)
-{
-    if (Store6.Text != "")
-    {
-        Preferences.Set("venue_id", idArray[5
-            ]);
-        Navigation.PushAsync(new MultipleStorePage(Store6.Text));
-    }
-}*/
         private void main_page3(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());

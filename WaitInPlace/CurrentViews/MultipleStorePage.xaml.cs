@@ -215,11 +215,11 @@ namespace WaitInPlace
 
             if (travel > 40)
             {
-                return 1;//travel / 8;
+                return travel / 8;
             }
             else
             {
-                return 1;// travel / 5;
+                return travel / 5;
             }
         }
 
